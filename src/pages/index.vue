@@ -703,6 +703,7 @@
 </style>
 <style type="text/less" lang="less">
     .wraps{
+      background: #fff;
       .center{
         .market{
           .marckshop{

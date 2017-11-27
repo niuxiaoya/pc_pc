@@ -41,7 +41,8 @@
   }
   #app{
     font-size: 16px;
-    /*min-height: 100vh;*/
+    background: #fafafa;
+    min-height: 100vh;
     /*position: relative;*/
     /*margin-bottom: 56px;*/
     /*margin-top: 100px;*/
@@ -49,9 +50,9 @@
       /*margin: 0;*/
       /*padding-bottom: 56px;*/
       /*padding-top: 100px;*/
-      /*-webkit-box-sizing: border-box;*/
-      /*-moz-box-sizing: border-box;*/
-      /*box-sizing: border-box;*/
+     /* -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;*/
     /*}*/
   }
 </style>
