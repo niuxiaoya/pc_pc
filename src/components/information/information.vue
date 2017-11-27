@@ -1,10 +1,8 @@
 <template>
-  <div class="About">
+  <div class="Information">
       <Top></Top>
-      <Navs :num="6"></Navs>
-      <div class="banners">
-        <img src="../../assets/img/auout/about.png" alt="">
-      </div>
+      <Navs :num="4"></Navs>
+      
       <Foot></Foot>
   </div>
 </template>
@@ -27,11 +25,11 @@
   }
 </style>
 <style type="text/less" lang="less" scoped>
-  .About{
+  .Information{
     .banners{
         margin:0 auto;
         width: 1220px;
-        min-width:1024px;
+        min-width:1220px;
         img{
           width: 100%;
           height: auto;

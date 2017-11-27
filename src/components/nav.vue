@@ -1,7 +1,7 @@
 <template>
   <div class="nav">
     <ul>
-      <li v-for="(item,index) in dataList"  @click="open(index==0)" :class="{'topActive':num==index}">{{item.name}}</li>
+      <li v-for="(item,index) in dataList"  @click="open(index)" :class="{'topActive':num==index}">{{item.name}}</li>
       <li class="lis">
         <i><img src="../assets/img/people.png" alt=""></i>
         <i><img src="../assets/img/search.png" alt=""></i>
@@ -47,10 +47,8 @@
         switch (index){
           case 0:
             this.$router.push('/')
-            console.log(index)
             break;
           case 1:
-            console.log(2)
             this.$router.push('/planning')
             break;
           case 2:
@@ -60,7 +58,11 @@
 //            this.$router.push('/lain')
             break;
           case 4:
-//            this.$router.push('/contactus')
+           this.$router.push('/information')
+            break;
+          case 6:
+           this.$router.push('/about')
+           console.log(1)
             break;
         }
       }
