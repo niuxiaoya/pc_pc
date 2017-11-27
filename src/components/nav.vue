@@ -49,7 +49,7 @@
             this.$router.push('/')
             break;
           case 1:
-            this.$router.push('/planning')
+            this.$router.push('/buy')
             break;
           case 2:
 //            this.$router.push('/wealthmanag')
