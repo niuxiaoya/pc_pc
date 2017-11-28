@@ -3,53 +3,17 @@
     <Top></Top>
     <Navs :num="1"></Navs>
     <div class="mian">
-      <div class="nav">
-        <el-select v-model="value1" placeholder="品牌">
-          <el-option
-            v-for="item in brand"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-            :disabled="item.disabled">
-          </el-option>
-        </el-select>
-        <el-select v-model="value2" placeholder="成色">
-          <el-option
-            v-for="item in fineness"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-            :disabled="item.disabled">
-          </el-option>
-        </el-select>
-        <el-select v-model="value2" placeholder="价格">
-          <el-option
-            v-for="item in fineness"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-            :disabled="item.disabled">
-          </el-option>
-        </el-select>
-        <el-select v-model="value2" placeholder="性格">
-          <el-option
-            v-for="item in fineness"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-            :disabled="item.disabled">
-          </el-option>
-        </el-select>
-        <el-select v-model="value2" placeholder="表壳材质">
-          <el-option
-            v-for="item in fineness"
-            :key="item.id"
-            :label="item.name"
-            :value="item.name"
-            :disabled="item.disabled">
-          </el-option>
-        </el-select>
-        <el-select v-model="value2" placeholder="更多">
+      <!--<div class="nav">-->
+        <!--<el-select v-model="value1" placeholder="品牌">-->
+          <!--<el-option-->
+            <!--v-for="item in brand"-->
+            <!--:key="item.id"-->
+            <!--:label="item.name"-->
+            <!--:value="item.name"-->
+            <!--:disabled="item.disabled">-->
+          <!--</el-option>-->
+        <!--</el-select>-->
+        <!--<el-select v-model="value2" placeholder="成色">-->
           <!--<el-option-->
             <!--v-for="item in fineness"-->
             <!--:key="item.id"-->
@@ -57,7 +21,100 @@
             <!--:value="item.name"-->
             <!--:disabled="item.disabled">-->
           <!--</el-option>-->
+        <!--</el-select>-->
+        <!--<el-select v-model="value2" placeholder="价格">-->
+          <!--<el-option-->
+            <!--v-for="item in fineness"-->
+            <!--:key="item.id"-->
+            <!--:label="item.name"-->
+            <!--:value="item.name"-->
+            <!--:disabled="item.disabled">-->
+          <!--</el-option>-->
+        <!--</el-select>-->
+        <!--<el-select v-model="value2" placeholder="性格">-->
+          <!--<el-option-->
+            <!--v-for="item in fineness"-->
+            <!--:key="item.id"-->
+            <!--:label="item.name"-->
+            <!--:value="item.name"-->
+            <!--:disabled="item.disabled">-->
+          <!--</el-option>-->
+        <!--</el-select>-->
+        <!--<el-select v-model="value2" placeholder="表壳材质">-->
+          <!--<el-option-->
+            <!--v-for="item in fineness"-->
+            <!--:key="item.id"-->
+            <!--:label="item.name"-->
+            <!--:value="item.name"-->
+            <!--:disabled="item.disabled">-->
+          <!--</el-option>-->
+        <!--</el-select>-->
+        <!--<el-select v-model="value2" placeholder="更多">-->
+          <!--&lt;!&ndash;<el-option&ndash;&gt;-->
+            <!--&lt;!&ndash;v-for="item in fineness"&ndash;&gt;-->
+            <!--&lt;!&ndash;:key="item.id"&ndash;&gt;-->
+            <!--&lt;!&ndash;:label="item.name"&ndash;&gt;-->
+            <!--&lt;!&ndash;:value="item.name"&ndash;&gt;-->
+            <!--&lt;!&ndash;:disabled="item.disabled">&ndash;&gt;-->
+          <!--&lt;!&ndash;</el-option>&ndash;&gt;-->
+        <!--</el-select>-->
+      <!--</div>-->
+      <div class="nav">
+        <el-select v-model="value1" placeholder="价格升序">
+          <el-option
+            v-for="item in options2"
+            :key="item.value"
+            :label="item.label"
+            :value="item.label"
+            :disabled="item.disabled">
+          </el-option>
         </el-select>
+        <el-select v-model="value2" placeholder="价格升序">
+          <el-option
+            v-for="item in options2"
+            :key="item.value"
+            :label="item.label"
+            :value="item.label"
+            :disabled="item.disabled">
+          </el-option>
+        </el-select>
+        <el-select v-model="value3" placeholder="价格升序">
+        <el-option
+          v-for="item in options2"
+          :key="item.value"
+          :label="item.label"
+          :value="item.label"
+          :disabled="item.disabled">
+        </el-option>
+      </el-select>
+        <el-select v-model="value4" placeholder="价格升序">
+          <el-option
+            v-for="item in options2"
+            :key="item.value"
+            :label="item.label"
+            :value="item.label"
+            :disabled="item.disabled">
+          </el-option>
+        </el-select>
+        <el-select v-model="value5" placeholder="价格升序">
+          <el-option
+            v-for="item in options2"
+            :key="item.value"
+            :label="item.label"
+            :value="item.label"
+            :disabled="item.disabled">
+          </el-option>
+        </el-select>
+        <el-select v-model="value2" placeholder="价格升序">
+          <!--<el-option-->
+            <!--v-for="item in options2"-->
+            <!--:key="item.value"-->
+            <!--:label="item.label"-->
+            <!--:value="item.value"-->
+            <!--:disabled="item.disabled">-->
+          <!--</el-option>-->
+        </el-select>
+
       </div>
       <div class="selet">
         <p>
@@ -78,18 +135,18 @@
       </div>
       <ul class="tab">
         <li v-if="value1">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value1">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value1">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value1">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value1">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value1">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value2">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value3">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value4">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value5">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value6">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
       </ul>
       <div class="content">
         <ul>
-           <li v-for="item in macket">
+           <li v-for="item in content">
             <dl>
               <dt>
-              <img :src="item.cover_pic">
+              <img :src="item.img">
               </dt>
               <dd>
                 <p>{{item.title}}</p>
@@ -152,6 +209,16 @@
         value5: '',
         value6: '',
         value7: '',
+        content:[
+          {
+            img:require("../../assets/img/bdfl.jpg"),
+            title:"标题",
+            cont:"1",
+            price:"1111",
+            city_name:"bhjdswcx",
+            pv:1,
+          }
+        ]
       }
 
     },

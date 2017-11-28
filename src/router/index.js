@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Index from '@/pages/index'
 import Buy from '@/components/buy/buy'  //资讯
 import Information from '@/components/information/information'  //资讯
+import Detail from '@/components/information/detail'  //资讯详情
 import About from '@/components/about/about'  //关于我们
 import Lodding from '@/components/lodding'
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/information',
       name: 'Information',
       component: Information
+    },
+    {
+      path: '/information/detail',
+      name: 'Detail',
+      component: Detail
     },
     {
       path: '/about',
