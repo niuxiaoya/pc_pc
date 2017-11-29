@@ -176,10 +176,10 @@
         <div class="isShowBox" v-if="navNum==6" style="padding: 0">
           <ul class="uls ul">
             <li>
-              <div  @click="isSel=!isSel">
-                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel}"></p>
+              <div  @click="isSel0=!isSel0">
+                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel0}"></p>
               </div>
-              <div v-if="isSel">
+              <div v-if="isSel0">
                 111
               </div>
             </li>
@@ -280,6 +280,7 @@
         navNum:"",
         isSel:false,
         isSel1:false,
+        isSel0:false,
         isSel2:false,
         isSel3:false,
         isSel4:false,
@@ -332,9 +333,6 @@
 
     },
     methods: {
-      isSel(index){
-//        console.log(index)
-      }
       /**
        * 点击页码获取数据
        * */
