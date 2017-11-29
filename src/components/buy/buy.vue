@@ -105,16 +105,18 @@
             :disabled="item.disabled">
           </el-option>
         </el-select>
-        <el-select v-model="value2" placeholder="价格升序">
-          <!--<el-option-->
-            <!--v-for="item in options2"-->
-            <!--:key="item.value"-->
-            <!--:label="item.label"-->
-            <!--:value="item.value"-->
-            <!--:disabled="item.disabled">-->
-          <!--</el-option>-->
-        </el-select>
-
+        <div class="more" @click.stop.prevent="show3 = !show3" :class="{'show':show3}">
+          更多
+        </div>
+        <div class="mack" v-if="show3">
+          <ul class="moreInfo">
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+          </ul>
+        </div>
       </div>
       <div class="selet">
         <p>
@@ -177,6 +179,7 @@
   export default {
     data(){
       return {
+        show3: false,
         macket:[],//所有
         brand:[],// 品牌
         material:[],// 表壳材质
@@ -317,9 +320,55 @@
       .nav{
         text-align: center;
         height: 45px;
-        border-right: 1px solid #ccc;
         display: flex;
         margin-bottom: 20px;
+        position: relative;
+        .mack{
+          transition: all .5s;
+          background: #fff;
+          border: 1px solid #ccc;
+          position: absolute;
+          top: 43px;
+          left: 0;
+          right: 0;
+          padding-top: 10px;
+          padding-bottom: 17px;
+          padding-left: 40px;
+          box-sizing: border-box;
+          z-index: 999;
+          .moreInfo{
+            display: flex;
+            flex-wrap: wrap;
+            li{
+              width: 46%;
+              box-sizing: border-box;
+              margin-right: 40px;
+              border-bottom: 1px solid #ccc;
+              color: #333;
+              text-align: left;
+              padding-left: 20px;
+              line-height: 60px;
+            }
+          }
+        }
+        .more{
+          flex: 1;
+          text-align: center;
+          line-height: 45px ;
+          border: 1px solid #ccc;
+          background: #f1f1f1;
+          color: #666;
+          transition: all .5s;
+          cursor: pointer;
+          /*&:hover{*/
+            /*background: #333;*/
+            /*color: #ebebeb;*/
+          /*}*/
+        }
+        .show{
+          background: #333;
+          color: #ebebeb;
+        }
       }
       .selet{
         padding-bottom: 20px;
@@ -433,6 +482,7 @@
 <style type="text/less" lang="less">
   .Buy{
     .nav{
+      position: relative;
       .el-select{
         flex: 1;
         .el-input__inner{
@@ -442,6 +492,7 @@
           text-align: center;
           color: #666;
           font-size: 16px;
+          background: #f1f1f1;
         }
         .el-input__icon {
           right:50px;
@@ -455,6 +506,7 @@
         border-radius: 0;
         color: #666;
         font-size: 16px;
+        background: #f1f1f1;
       }
     }
     .page{
@@ -483,5 +535,9 @@
         }
       }
     }
+    .el-select-dropdown{
+
+    }
   }
+
 </style>
