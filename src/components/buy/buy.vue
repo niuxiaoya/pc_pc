@@ -3,121 +3,53 @@
     <Top></Top>
     <Navs :num="1"></Navs>
     <div class="mian">
-      <!--<div class="nav">-->
-        <!--<el-select v-model="value1" placeholder="品牌">-->
-          <!--<el-option-->
-            <!--v-for="item in brand"-->
-            <!--:key="item.id"-->
-            <!--:label="item.name"-->
-            <!--:value="item.name"-->
-            <!--:disabled="item.disabled">-->
-          <!--</el-option>-->
-        <!--</el-select>-->
-        <!--<el-select v-model="value2" placeholder="成色">-->
-          <!--<el-option-->
-            <!--v-for="item in fineness"-->
-            <!--:key="item.id"-->
-            <!--:label="item.name"-->
-            <!--:value="item.name"-->
-            <!--:disabled="item.disabled">-->
-          <!--</el-option>-->
-        <!--</el-select>-->
-        <!--<el-select v-model="value2" placeholder="价格">-->
-          <!--<el-option-->
-            <!--v-for="item in fineness"-->
-            <!--:key="item.id"-->
-            <!--:label="item.name"-->
-            <!--:value="item.name"-->
-            <!--:disabled="item.disabled">-->
-          <!--</el-option>-->
-        <!--</el-select>-->
-        <!--<el-select v-model="value2" placeholder="性格">-->
-          <!--<el-option-->
-            <!--v-for="item in fineness"-->
-            <!--:key="item.id"-->
-            <!--:label="item.name"-->
-            <!--:value="item.name"-->
-            <!--:disabled="item.disabled">-->
-          <!--</el-option>-->
-        <!--</el-select>-->
-        <!--<el-select v-model="value2" placeholder="表壳材质">-->
-          <!--<el-option-->
-            <!--v-for="item in fineness"-->
-            <!--:key="item.id"-->
-            <!--:label="item.name"-->
-            <!--:value="item.name"-->
-            <!--:disabled="item.disabled">-->
-          <!--</el-option>-->
-        <!--</el-select>-->
-        <!--<el-select v-model="value2" placeholder="更多">-->
-          <!--&lt;!&ndash;<el-option&ndash;&gt;-->
-            <!--&lt;!&ndash;v-for="item in fineness"&ndash;&gt;-->
-            <!--&lt;!&ndash;:key="item.id"&ndash;&gt;-->
-            <!--&lt;!&ndash;:label="item.name"&ndash;&gt;-->
-            <!--&lt;!&ndash;:value="item.name"&ndash;&gt;-->
-            <!--&lt;!&ndash;:disabled="item.disabled">&ndash;&gt;-->
-          <!--&lt;!&ndash;</el-option>&ndash;&gt;-->
-        <!--</el-select>-->
-      <!--</div>-->
-      <div class="nav">
-        <el-select v-model="value1" placeholder="价格升序">
-          <el-option
-            v-for="item in options2"
-            :key="item.value"
-            :label="item.label"
-            :value="item.label"
-            :disabled="item.disabled">
-          </el-option>
-        </el-select>
-        <el-select v-model="value2" placeholder="价格升序">
-          <el-option
-            v-for="item in options2"
-            :key="item.value"
-            :label="item.label"
-            :value="item.label"
-            :disabled="item.disabled">
-          </el-option>
-        </el-select>
-        <el-select v-model="value3" placeholder="价格升序">
-        <el-option
-          v-for="item in options2"
-          :key="item.value"
-          :label="item.label"
-          :value="item.label"
-          :disabled="item.disabled">
-        </el-option>
-      </el-select>
-        <el-select v-model="value4" placeholder="价格升序">
-          <el-option
-            v-for="item in options2"
-            :key="item.value"
-            :label="item.label"
-            :value="item.label"
-            :disabled="item.disabled">
-          </el-option>
-        </el-select>
-        <el-select v-model="value5" placeholder="价格升序">
-          <el-option
-            v-for="item in options2"
-            :key="item.value"
-            :label="item.label"
-            :value="item.label"
-            :disabled="item.disabled">
-          </el-option>
-        </el-select>
-        <div class="more" @click.stop.prevent="show3 = !show3" :class="{'show':show3}">
-          更多
+      <div class="mins">
+        <ul class="nav">
+          <li @click="navNum = 1" :class="{'navActive':navNum==1}">
+            品牌
+            <img src="../../assets/img/buy/xjt.png">
+          </li>
+          <li @click="navNum = 2" :class="{'navActive':navNum==2}">
+            成色
+            <img src="../../assets/img/buy/xjt.png">
+          </li>
+          <li @click="navNum = 3" :class="{'navActive':navNum==3}">
+            价格
+            <img src="../../assets/img/buy/xjt.png">
+          </li>
+          <li @click="navNum = 3" :class="{'navActive':navNum==4}">
+            性别
+            <img src="../../assets/img/buy/xjt.png">
+          </li>
+          <li @click="navNum = 3" :class="{'navActive':navNum==5}">
+            表壳材质
+            <img src="../../assets/img/buy/xjt.png">
+          </li>
+          <li @click="navNum = 3" :class="{'navActive':navNum==6}">
+            更多
+            <img src="../../assets/img/buy/xjt.png">
+          </li>
+        </ul>
+        <div class="isShowBox" v-if="navNum==1">
+
         </div>
-        <div class="mack" v-if="show3">
-          <ul class="moreInfo">
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-          </ul>
+        <div class="isShowBox" v-if="navNum==3">
+            <div class="price">
+              <p>价格区间（万元）</p>
+              <div>
+                <input type="text">
+                <input type="text">
+                <span></span>
+              </div>
+            </div>
+            <div class="btn">
+              <button>重置</button>
+              <button>确认</button>
+            </div>
         </div>
       </div>
+
+
       <div class="selet">
         <p>
           <span>筛选</span>
@@ -135,14 +67,6 @@
           <input type="text" placeholder="请输入关键字">
         </p>
       </div>
-      <ul class="tab">
-        <li v-if="value1">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value2">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value3">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value4">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value5">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value6">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-      </ul>
       <div class="content">
         <ul>
            <li v-for="item in content">
@@ -179,7 +103,11 @@
   export default {
     data(){
       return {
+        navNum:"",
+        isSel:false,
+        show2:false,
         show3: false,
+        radio1:1,
         macket:[],//所有
         brand:[],// 品牌
         material:[],// 表壳材质
@@ -226,6 +154,9 @@
 
     },
     methods: {
+      isSel(index){
+//        console.log(index)
+      }
       /**
        * 点击页码获取数据
        * */
@@ -269,6 +200,7 @@
 // 品牌
       self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
         self.brand = res.data.data
+        console.log(self.brand)
       }).catch(err=>{
         console.log(err)
       })
@@ -323,51 +255,105 @@
         display: flex;
         margin-bottom: 20px;
         position: relative;
-        .mack{
-          transition: all .5s;
-          background: #fff;
-          border: 1px solid #ccc;
-          position: absolute;
-          top: 43px;
-          left: 0;
-          right: 0;
-          padding-top: 10px;
-          padding-bottom: 17px;
-          padding-left: 40px;
-          box-sizing: border-box;
-          z-index: 999;
-          .moreInfo{
-            display: flex;
-            flex-wrap: wrap;
-            li{
-              width: 46%;
-              box-sizing: border-box;
-              margin-right: 40px;
-              border-bottom: 1px solid #ccc;
-              color: #333;
-              text-align: left;
-              padding-left: 20px;
-              line-height: 60px;
-            }
-          }
-        }
-        .more{
-          flex: 1;
-          text-align: center;
-          line-height: 45px ;
-          border: 1px solid #ccc;
-          background: #f1f1f1;
-          color: #666;
-          transition: all .5s;
+        li{
           cursor: pointer;
+          flex: 1;
+          height: 45px;
+          border: 1px solid #ccc;
+          line-height: 45px;
+          border-right: none;
+          text-align: center;
+          color: #666;
+          font-size: 16px;
+          background: #f1f1f1;
+          transition: all .4s;
+          &:last-child{
+            border-right: 1px solid #ccc;
+          }
           /*&:hover{*/
             /*background: #333;*/
-            /*color: #ebebeb;*/
+            /*color: #fff;*/
           /*}*/
         }
-        .show{
-          background: #333;
-          color: #ebebeb;
+      }
+      .mins{
+        position: relative;
+        .isShowBox{
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 47px;
+          background: #fff;
+          border: 2px solid #ccc;
+          box-sizing: border-box;
+          padding: 0 40px;
+          z-index: 100;
+          height: auto;
+          border-top: none;
+          &:first-child{
+            padding-bottom: 46px;
+          }
+          &:nth-child(3){
+            padding:0!important;
+          }
+          .price{
+            padding-top: 40px;
+            width: 512px;
+            margin: 0 auto;
+            p{
+              font-size: 16px;
+              color: #666;
+
+            }
+            div{
+              padding-top: 20px;
+              display: flex;
+              justify-content: space-between;
+              position: relative;
+              width: 512px;
+              height: 52px;
+              input{
+                border: 1px solid #ccc;
+                width: 160px;
+                height: 52px;
+                padding:  0 10px;
+                box-sizing: border-box;
+              }
+              span{
+                position: absolute;
+                display: block;
+                left: 180px;
+                top: 40px;
+                width: 150px;
+                height: 1px;
+                color: #ccc;
+                border-bottom: 1px solid #ccc;
+              }
+            }
+
+          }
+          .btn{
+            text-align: right;
+            border-top: 1px solid #ccc;
+            margin-top: 40px;
+            padding-top: 20px;
+            padding-bottom: 15px;
+            button{
+              box-sizing: border-box;
+              display: inline-block;
+              width: 160px;
+              height: 46px;
+              border: 1px solid #ccc;
+              color: #999;
+              font-size: 16px;
+              background: none;
+              transition: all .4s;
+              &:hover{
+                background: #333;
+                color: #ebebeb;
+              }
+            }
+          }
         }
       }
       .selet{
@@ -481,34 +467,6 @@
 </style>
 <style type="text/less" lang="less">
   .Buy{
-    .nav{
-      position: relative;
-      .el-select{
-        flex: 1;
-        .el-input__inner{
-          height: 45px;
-          border-radius: 0;
-          border-right: none;
-          text-align: center;
-          color: #666;
-          font-size: 16px;
-          background: #f1f1f1;
-        }
-        .el-input__icon {
-          right:50px;
-        }
-      }
-    }
-    .selet{
-      .el-input__inner{
-        height: 30px;
-        width: 145px;
-        border-radius: 0;
-        color: #666;
-        font-size: 16px;
-        background: #f1f1f1;
-      }
-    }
     .page{
       .item{
         font-size: 16px;
@@ -535,8 +493,19 @@
         }
       }
     }
-    .el-select-dropdown{
-
+    .el-radio{
+      width: 48%;
+      padding-bottom: 18px;
+      margin-left: 0;
+      .is-checked{
+        .el-radio__inner{
+          background: none;
+          border: 1px solid #000;
+          &:after{
+            background: #000!important;
+          }
+        }
+      }
     }
   }
 
