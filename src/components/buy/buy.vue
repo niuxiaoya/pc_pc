@@ -7,33 +7,138 @@
         <ul class="nav">
           <li @click="navNum = 1" :class="{'navActive':navNum==1}">
             品牌
-            <img src="../../assets/img/buy/xjt.png">
+            <img src="../../assets/img/buy/xjt.png" v-if="navNum!=1">
+            <img src="../../assets/img/buy/close.png" v-if="navNum==1">
           </li>
           <li @click="navNum = 2" :class="{'navActive':navNum==2}">
             成色
-            <img src="../../assets/img/buy/xjt.png">
+            <img src="../../assets/img/buy/xjt.png" v-if="navNum!=2">
+            <img src="../../assets/img/buy/close.png" v-if="navNum==2">
           </li>
           <li @click="navNum = 3" :class="{'navActive':navNum==3}">
             价格
-            <img src="../../assets/img/buy/xjt.png">
+            <img src="../../assets/img/buy/xjt.png" v-if="navNum!=3">
+            <img src="../../assets/img/buy/close.png" v-if="navNum==3">
           </li>
-          <li @click="navNum = 3" :class="{'navActive':navNum==4}">
+          <li @click="navNum = 4" :class="{'navActive':navNum==4}">
             性别
-            <img src="../../assets/img/buy/xjt.png">
+            <img src="../../assets/img/buy/xjt.png" v-if="navNum!=4">
+            <img src="../../assets/img/buy/close.png" v-if="navNum==4">
           </li>
-          <li @click="navNum = 3" :class="{'navActive':navNum==5}">
+          <li @click="navNum = 5" :class="{'navActive':navNum==5}">
             表壳材质
-            <img src="../../assets/img/buy/xjt.png">
+            <img src="../../assets/img/buy/xjt.png" v-if="navNum!=5">
+            <img src="../../assets/img/buy/close.png" v-if="navNum==5">
           </li>
-          <li @click="navNum = 3" :class="{'navActive':navNum==6}">
+          <li @click="navNum = 6" :class="{'navActive':navNum==6}">
             更多
-            <img src="../../assets/img/buy/xjt.png">
+            <img src="../../assets/img/buy/xjt.png" v-if="navNum!=6">
+            <img src="../../assets/img/buy/close.png" v-if="navNum==6">
           </li>
         </ul>
         <div class="isShowBox" v-if="navNum==1">
-
+          <ul class="uls">
+            <li>
+              <div>
+                <p>a</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>b</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>c</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>d</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>e</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>f</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>d</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>e</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>f</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>d</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>e</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+            <li>
+              <div>
+                <p>f</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </div>
+            </li>
+          </ul>
         </div>
-        <div class="isShowBox" v-if="navNum==3">
+        <div class="isShowBox sexBox padd" v-if="navNum==2">
+          <div class="sex">
+            <p>男士</p>
+            <p>女士</p>
+            <p>中性</p>
+          </div>
+        </div>
+        <div class="isShowBox" v-if="navNum==3" style="padding: 0">
             <div class="price">
               <p>价格区间（万元）</p>
               <div>
@@ -46,6 +151,75 @@
               <button>重置</button>
               <button>确认</button>
             </div>
+        </div>
+        <div class="isShowBox sexBox" v-if="navNum==4">
+            <div class="sex">
+              <p>男士</p>
+              <p>女士</p>
+              <p>中性</p>
+            </div>
+        </div>
+        <div class="isShowBox" v-if="navNum==5">
+            <ul class="quality">
+             <li>1</li>
+             <li>1</li>
+             <li>1</li>
+             <li>1</li>
+             <li>1</li>
+             <li>1</li>
+             <li>1</li>
+             <li>1</li>
+             <li>1</li>
+             <li>1</li>
+            </ul>
+        </div>
+        <div class="isShowBox" v-if="navNum==6" style="padding: 0">
+          <ul class="uls ul">
+            <li>
+              <div  @click="isSel=!isSel">
+                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel}"></p>
+              </div>
+              <div v-if="isSel">
+                111
+              </div>
+            </li>
+            <li>
+              <div  @click="isSel1=!isSel1">
+                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel1}"></p>
+              </div>
+              <div v-if="isSel1">
+                111
+              </div>
+            </li>
+            <li>
+              <div  @click="isSel2=!isSel2">
+                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel2}"></p>
+              </div>
+              <div v-if="isSel2">
+                111
+              </div>
+            </li>
+            <li>
+              <div  @click="isSel3=!isSel3">
+                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel3}"></p>
+              </div>
+              <div v-if="isSel3">
+                111
+              </div>
+            </li>
+            <li>
+              <div  @click="isSel4=!isSel4">
+                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel4}"></p>
+              </div>
+              <div v-if="isSel4">
+                111
+              </div>
+            </li>
+          </ul>
+          <div class="btn">
+            <button>重置</button>
+            <button>确认</button>
+          </div>
         </div>
       </div>
 
@@ -105,6 +279,10 @@
       return {
         navNum:"",
         isSel:false,
+        isSel1:false,
+        isSel2:false,
+        isSel3:false,
+        isSel4:false,
         show2:false,
         show3: false,
         radio1:1,
@@ -275,6 +453,10 @@
             /*color: #fff;*/
           /*}*/
         }
+        .navActive{
+          background: #333;
+          color: #fff;
+        }
       }
       .mins{
         position: relative;
@@ -287,14 +469,62 @@
           border: 2px solid #ccc;
           box-sizing: border-box;
           padding: 0 40px;
+          padding-right: 0;
           z-index: 100;
           height: auto;
           border-top: none;
           &:first-child{
             padding-bottom: 46px;
           }
-          &:nth-child(3){
-            padding:0!important;
+          .uls{
+            display: flex;
+            flex-wrap: wrap;
+            li{
+              width: 20%;
+              padding-right: 40px;
+              box-sizing: border-box;
+              p{
+                padding-left: 20px;
+                border-bottom: 1px solid #e6e6e6;
+                line-height: 50px;
+                &:first-child{
+                  border-bottom: 1px solid #ccc;
+                  color: #333;
+                  font-weight: bold;
+                  &:hover{
+                    background: none;
+                  }
+                }
+                &:hover{
+                  background: #fafafa;
+                  font-weight: bold;
+                }
+              }
+            }
+          }
+          .ul{
+            padding: 0 40px;
+            li{
+              width: 48.2%;
+              border-bottom: 1px solid #ccc;
+              padding-left: 20px;
+              padding-right: 0;
+              &:nth-child(2n-1){
+                margin-right: 40px;
+              }
+              p{
+                border: none!important;
+                transition: all .4s;
+                padding-left: 0;
+                img{
+                  float: right;
+                  margin-top: 20px;
+                  &.imgShow{
+                    transform: rotate(135deg);
+                  }
+                }
+              }
+            }
           }
           .price{
             padding-top: 40px;
@@ -348,12 +578,69 @@
               font-size: 16px;
               background: none;
               transition: all .4s;
+              &:first-child{
+                margin-right: 20px;
+              }
+              &:last-child{
+                margin-right: 40px;
+              }
               &:hover{
                 background: #333;
                 color: #ebebeb;
               }
             }
           }
+          .quality{
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            padding-bottom: 2px;
+            li{
+              width: 16.5%;
+              height: 48px;
+              line-height: 48px;
+              padding-left: 20px;
+              border-bottom: 1px solid #ccc;
+              margin-right: 40px;
+              box-sizing: border-box;
+              color: #666;
+              font-size: 16px;
+              &:hover{
+                background: #fafafa;
+                color: #333;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+        .sexBox{
+          width: 16.7%;
+          height: auto;
+          left:50%;
+          padding-left: 0;
+          .sex{
+            display: flex;
+            flex-direction: column;
+            p{
+              height: 50px;
+              border-bottom: 1px solid #e6e6e6;
+              text-align: center;
+              line-height: 50px;
+              box-sizing: border-box;
+              color: #666;
+              cursor: pointer;
+              &:last-child{
+                border-bottom: none;
+              }
+              &:hover{
+                color: #000;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+        .padd{
+          left:16.7%
         }
       }
       .selet{
