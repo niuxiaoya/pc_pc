@@ -95,86 +95,9 @@
               </div>
             </li>
           </ul>
-
-
-
-
-
-
-<!--
-
-          <ul class="uls ul">
-            <li>
-              <div  @click="change(1)">
-                <p>售卖状态 <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel}"></p>
-              </div>
-              <div v-if="isSel">
-                <el-radio-group v-model="radio1">
-                  <el-radio :label="1">在售</el-radio>
-                  <el-radio :label="2">已售</el-radio>
-                </el-radio-group>
-              </div>
-            </li>
-            <li>
-              <div  @click="change(2)">
-                <p>机芯类型 <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel}"></p>
-              </div>
-              <div v-if="isSel">
-                <el-radio-group v-model="radio1">
-                  <el-radio :label="1">在售</el-radio>
-                  <el-radio :label="2">已售</el-radio>
-
-                </el-radio-group>
-              </div>
-            </li>
-            &lt;!&ndash;<li>&ndash;&gt;
-              &lt;!&ndash;<div  @click="isSel0=!isSel0">&ndash;&gt;
-                &lt;!&ndash;<p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel0}"></p>&ndash;&gt;
-              &lt;!&ndash;</div>&ndash;&gt;
-              &lt;!&ndash;<div v-if="isSel0">&ndash;&gt;
-                &lt;!&ndash;<el-radio-group v-model="radio1">&ndash;&gt;
-                  &lt;!&ndash;<el-radio :label="1">在售</el-radio>&ndash;&gt;
-                  &lt;!&ndash;<el-radio :label="2">已售</el-radio>&ndash;&gt;
-
-                &lt;!&ndash;</el-radio-group>&ndash;&gt;
-              &lt;!&ndash;</div>&ndash;&gt;
-            &lt;!&ndash;</li>&ndash;&gt;
-            <li>
-              <div  @click="isSel1=!isSel1">
-                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel1}"></p>
-              </div>
-              <div v-if="isSel1">
-                111
-              </div>
-            </li>
-            <li>
-              <div  @click="isSel2=!isSel2">
-                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel2}"></p>
-              </div>
-              <div v-if="isSel2">
-                111
-              </div>
-            </li>
-            <li>
-              <div  @click="isSel3=!isSel3">
-                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel3}"></p>
-              </div>
-              <div v-if="isSel3">
-                111
-              </div>
-            </li>
-            <li>
-              <div  @click="isSel4=!isSel4">
-                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel4}"></p>
-              </div>
-              <div v-if="isSel4">
-                111
-              </div>
-            </li>
-          </ul>-->
           <div class="btn">
-            <button>重置</button>
-            <button>确认</button>
+            <button @click="tab6(1)" >重置</button>
+            <button @click="tab6(2)" >确认</button>
           </div>
         </div>
       </div>
@@ -325,10 +248,6 @@
         value4: '',
         value5: '',
         value6: '',
-        value7: '',
-        value8: '',
-        value9: '',
-        value10: '',
         content:[],
         pagecount:5,
         keyword: '', //  关键字
@@ -425,6 +344,18 @@
         switch (index){
           case index:
             this.value5=index;
+            this.navNum=""
+            break;
+        }
+      },
+      tab6(index) {
+        switch (index){
+          case 1:
+//            this.value4=index;
+//            this.navNum=""
+            break;
+          case  2:
+
             this.navNum=""
             break;
         }

@@ -7,7 +7,7 @@
           资讯
         </div>
         <div class="info" v-for="item in dataList">
-          <dl>
+          <dl @click="info()">
             <dt>
               <img :src="item.img" alt="">
             </dt>
@@ -52,6 +52,11 @@
             img:require("../../assets/img/bdfl.jpg")
           }
         ]
+      }
+    },
+    methods:{
+      info(){
+        this.$router.push('/information/detail')
       }
     },
     components: {

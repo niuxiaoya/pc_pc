@@ -3,7 +3,7 @@
     <ul>
       <li v-for="(item,index) in dataList"  @click="open(index)" :class="{'topActive':num==index}">{{item.name}}</li>
       <li class="lis">
-        <i><img src="../assets/img/people.png" alt=""></i>
+        <i><img src="../assets/img/people.png" alt="" @click="openLogin" ></i>
         <i><img src="../assets/img/search.png" alt=""></i>
         <i><img src="../assets/img/shop.png" alt=""></i>
       </li>
@@ -65,6 +65,9 @@
            console.log(1)
             break;
         }
+      },
+      openLogin(){
+        this.$router.push('/login')
       }
     }
   }
