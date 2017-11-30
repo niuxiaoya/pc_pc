@@ -38,151 +38,107 @@
         </ul>
         <div class="isShowBox" v-if="navNum==1">
           <ul class="uls">
-            <li>
+            <li v-for="item in brand">
               <div>
-                <p>a</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>b</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>c</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>d</p>
-                <p>1</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>e</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>f</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>d</p>
-                <p>1</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>e</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>f</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>d</p>
-                <p>1</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>e</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <p>f</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
+                <p>{{item.num}}</p>
+                <p class="tag1" @click="tab1(i)" v-for="i in item.content">{{i}}</p>
               </div>
             </li>
           </ul>
         </div>
         <div class="isShowBox sexBox padd" v-if="navNum==2">
           <div class="sex">
-            <p>男士</p>
-            <p>女士</p>
-            <p>中性</p>
+            <p class="tab2" @click="tab2(item)" v-for="item in fineness">{{item}}</p>
           </div>
         </div>
         <div class="isShowBox" v-if="navNum==3" style="padding: 0">
             <div class="price">
               <p>价格区间（万元）</p>
               <div>
-                <input type="text">
-                <input type="text">
+                <input type="number" v-model="moeny1">
+                <input type="number" v-model="moeny2">
                 <span></span>
               </div>
             </div>
             <div class="btn">
-              <button>重置</button>
-              <button>确认</button>
+              <button @click="tab3(1)">重置</button>
+              <button @click="tab3(2)">确认</button>
             </div>
         </div>
         <div class="isShowBox sexBox" v-if="navNum==4">
             <div class="sex">
-              <p>男士</p>
-              <p>女士</p>
-              <p>中性</p>
+              <p class="tab2" @click="tab4(item)" v-for="item in sex">{{item}}</p>
             </div>
         </div>
         <div class="isShowBox" v-if="navNum==5">
             <ul class="quality">
-             <li>1</li>
-             <li>1</li>
-             <li>1</li>
-             <li>1</li>
-             <li>1</li>
-             <li>1</li>
-             <li>1</li>
-             <li>1</li>
-             <li>1</li>
-             <li>1</li>
+             <li @click="tab5(item)" v-for="item in material">{{item}}</li>
             </ul>
         </div>
         <div class="isShowBox" v-if="navNum==6" style="padding: 0">
           <ul class="uls ul">
-            <li>
-              <div  @click="isSel0=!isSel0">
-                <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel0}"></p>
+            <li v-for="item,i in moreList" :key="i">
+              <div @click="change(item, i)">
+                <p>{{item.title}} <img src="../../assets/img/buy/more.png" :class="{'imgShow':item.isSel}"></p>
               </div>
-              <div v-if="isSel0">
-                111
+              <div v-if="item.isSel">
+                <div v-if="item.type == 'checkbox'">
+                  <el-checkbox-group v-model="item.model">
+                    <el-checkbox v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-checkbox>
+                  </el-checkbox-group>
+                </div>
+                <div v-else>
+                  <el-radio-group v-model="item.model">
+                    <el-radio v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-radio>
+                  </el-radio-group>
+                </div>
               </div>
             </li>
+          </ul>
+
+
+
+
+
+
+<!--
+
+          <ul class="uls ul">
+            <li>
+              <div  @click="change(1)">
+                <p>售卖状态 <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel}"></p>
+              </div>
+              <div v-if="isSel">
+                <el-radio-group v-model="radio1">
+                  <el-radio :label="1">在售</el-radio>
+                  <el-radio :label="2">已售</el-radio>
+                </el-radio-group>
+              </div>
+            </li>
+            <li>
+              <div  @click="change(2)">
+                <p>机芯类型 <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel}"></p>
+              </div>
+              <div v-if="isSel">
+                <el-radio-group v-model="radio1">
+                  <el-radio :label="1">在售</el-radio>
+                  <el-radio :label="2">已售</el-radio>
+
+                </el-radio-group>
+              </div>
+            </li>
+            &lt;!&ndash;<li>&ndash;&gt;
+              &lt;!&ndash;<div  @click="isSel0=!isSel0">&ndash;&gt;
+                &lt;!&ndash;<p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel0}"></p>&ndash;&gt;
+              &lt;!&ndash;</div>&ndash;&gt;
+              &lt;!&ndash;<div v-if="isSel0">&ndash;&gt;
+                &lt;!&ndash;<el-radio-group v-model="radio1">&ndash;&gt;
+                  &lt;!&ndash;<el-radio :label="1">在售</el-radio>&ndash;&gt;
+                  &lt;!&ndash;<el-radio :label="2">已售</el-radio>&ndash;&gt;
+
+                &lt;!&ndash;</el-radio-group>&ndash;&gt;
+              &lt;!&ndash;</div>&ndash;&gt;
+            &lt;!&ndash;</li>&ndash;&gt;
             <li>
               <div  @click="isSel1=!isSel1">
                 <p>d <img src="../../assets/img/buy/more.png" :class="{'imgShow':isSel1}"></p>
@@ -215,7 +171,7 @@
                 111
               </div>
             </li>
-          </ul>
+          </ul>-->
           <div class="btn">
             <button>重置</button>
             <button>确认</button>
@@ -238,9 +194,17 @@
           </el-select>
         </p>
         <p class="sel">
-          <input type="text" placeholder="请输入关键字">
+          <input type="text" v-model="keyword" @keyup.enter="search()" placeholder="请输入关键字">
         </p>
       </div>
+      <ul class="tab">
+        <li v-if="value1">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value2">{{value2}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value3">{{value3}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value4">{{value4}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value5">{{value5}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value6">{{value6}}<i><img src="../../assets/img/buy/close.png"></i></li>
+      </ul>
       <div class="content">
         <ul>
            <li v-for="item in content">
@@ -263,8 +227,9 @@
       </div>
       <div class="page">
         <!--<span class="item" @click="handlerPage(1)">首页</span>-->
-        <!--<el-pagination layout="prev,pager,next" :page-count="pagecount" @current-change="handlerPage"></el-pagination>-->
+        <el-pagination layout="prev,pager,next" :page-count="pagecount" @current-change="handlerPage"></el-pagination>
         <!--<span class="item" @click="handlerPage(pagecount)">尾页</span>-->
+        <span class="item">页数  <i>{{ p }}</i> / <i>{{pagecount}}</i></span>
       </div>
     </div>
     <Foot></Foot>
@@ -288,13 +253,55 @@
         show3: false,
         radio1:1,
         macket:[],//所有
-        brand:[],// 品牌
-        material:[],// 表壳材质
-        fineness:[],// 成色
+        brand:[
+          {
+            num:'A',
+            content:[
+              "的位于一个财富",
+              "的位于一个财富",
+              "的位于一个财富",
+            ]
+          },
+          {
+            num:'A',
+            content:[
+              "的位于一个财富",
+              "的位于一个财富",
+            ]
+          },
+          {
+            num:'A',
+            content:[
+              "的位于一个财富",
+            ]
+          },
+        ],// 品牌
+        material:[
+          '18K玫瑰金',
+          '精钢',
+          '洗洗',
+          '哈哈',
+          '审核',
+          '二位',
+          '是五花',
+        ],// 表壳材质
+        fineness:[
+          "未使用",
+          "99成新",
+          "98成新",
+        ],// 成色
+        moeny1:'',//最小值
+        moeny2:'',//最大值
+        sex:[
+          '男性',
+          '女性',
+          '中性'
+        ],//性别
         functionss:[],// 复杂功能
         movement:[],// 机芯类型
         shape:[],// 表盘形状
         currentPage1: 5,
+        p: 1,  // 当前页码
         options2: [{
           value: '选项1',
           label: '黄金糕'
@@ -319,16 +326,14 @@
         value5: '',
         value6: '',
         value7: '',
-        content:[
-          {
-            img:require("../../assets/img/bdfl.jpg"),
-            title:"标题",
-            cont:"1",
-            price:"1111",
-            city_name:"bhjdswcx",
-            pv:1,
-          }
-        ]
+        value8: '',
+        value9: '',
+        value10: '',
+        content:[],
+        pagecount:5,
+        keyword: '', //  关键字
+
+        moreList: []
       }
 
     },
@@ -336,86 +341,306 @@
       /**
        * 点击页码获取数据
        * */
-//      handlerPage(val) {
-//        if(val > 0 && val <= this.pagecount) {
-//          this.getList(val)
-//        }
-//      },
+      handlerPage(val) {
+        if(val > 0 && val <= this.pagecount) {
+          this.getList(val)
+          this.p = val
+        }
+      },
 
-//      /**
-//       * 获取记录列表
-//       * 参数 p: 页码
-//       * */
-//      getList(p) {
-//        let data = []
-//        let rows = 7   //  每页要显示的条数
-//        for(let k=0; k<rows; k++) {
-//          data.push({
-//            time: '2017-10-25 14:38:13',
-//            ip: '666666',
-//            // address: `登录${p}`,
-//            money:'BTC',
-//            procedure:'0,3324',
-//            sum:'12.000',
-//            newmoney:0.0005,
-//            remack:`666666${p}`
-//          })
+      /**
+       * 获取记录列表
+       * 参数 p: 页码
+       * */
+      getList(p) {
+        let url = ''    //  接口地址
+       /* this.$http.get(url, {
+          params: {
+            keyword: this.keyword,
+            p: p,     //  页码
+            rows: 7   //  每页多少条
+          }
+        }).then(res => {*/
+          this.content = []
+          let data = []
+          let rows = 7   //  每页要显示的条数
+          for(let k=0; k<rows; k++) {
+            data.push({
+              img:require("../../assets/img/bdfl.jpg"),
+              title:"标题" + Math.random() * 80,
+              cont:"1",
+              price:"1111",
+              city_name:"bhjdswcx",
+              pv:1
+            })
+          }
+
+        //  this.pagecount = 1   //  总共多少页
+
+          this.content = data
+       /* }).catch(() => {
+          this.content = []
+          this.p = 1
+          this.currentPage1 = 1
+        })*/
+      },
+      tab1(index) {
+        switch (index){
+          case index:
+            this.value1=index;
+            this.navNum=""
+            break;
+        }
+      },
+      tab2(index) {
+        switch (index){
+          case index:
+            this.value2=index;
+            this.navNum=""
+            break;
+        }
+      },
+      tab3(index){
+        switch (index){
+          case 1:
+            this.moeny1=""
+            this.moeny2=""
+            break;
+          case 2:
+            console.log(this.moeny1)
+            this.value3=this.moeny1+"万 - "+this.moeny2+"万";
+            this.navNum=""
+            break;
+        }
+      },
+      tab4(index) {
+        switch (index){
+          case index:
+            this.value4=index;
+            this.navNum=""
+            break;
+        }
+      },
+      tab5(index) {
+        switch (index){
+          case index:
+            this.value5=index;
+            this.navNum=""
+            break;
+        }
+      },
+      /**
+       * 关键词搜索
+       * */
+      search () {
+        this.getList(1)
+      },
+      /**
+       * 更多
+       */
+      change(item, index){
+//        switch (index){
+//          case index:
+//            this.isSel=!this.isSel
+//            break;
 //        }
-//
-//        this.list = data
-//      },
+        item.isSel=!item.isSel
+      }
+    },
+    created(){
+
     },
     mounted(){
       let self = this
-      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/market/buyer/goodsList`).then(res=>{
-        self.macket = res.data.data
-        console.log(res.data)
-      }).catch(err=>{
-        console.log(err)
-      })
-// 品牌
-      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
-        self.brand = res.data.data
-        console.log(self.brand)
-      }).catch(err=>{
-        console.log(err)
-      })
-//表壳材质
-      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/material`).then(res=>{
-        self.material = res.data.data
-      }).catch(err=>{
-        console.log(err)
-      })
-// 成色
-      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/fineness`).then(res=>{
-        self.fineness = res.data.data
-      }).catch(err=>{
-        console.log(err)
-      })
-      //      复杂功能
-      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/function`).then(res=>{
-        self.functionss = res.data.data
-      }).catch(err=>{
-        console.log(err)
-      })
-      //      机芯类型
-      self.$http.get(` http://apidev.swisstimevip.com:8000/dict/v1/dict/movement`).then(res=>{
-        self.movement = res.data.data
-      }).catch(err=>{
-        console.log(err)
-      })
-      //      表盘形状
-      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/shape `).then(res=>{
-        self.shape = res.data.data
-      }).catch(err=>{
-        console.log(err)
-      })
+
+      let title = ['售卖状态', '机芯类型', '表盘形状', '表盘直径', '复杂功能']
+      for(let i=0; i<5; i++) {
+        this.moreList.push({
+          isSel: false,
+          title: title[i],
+          model: i === 4 ? [] : '',
+          type: i === 4 ? 'checkbox' : 'radio',
+          data: i === 0 ? [{label: '在售', value: 1}, {label: '已售', value: 2}] : []
+        })
+      }
+
+
+      this.getList(1)
+
+
+//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/market/buyer/goodsList`).then(res=>{
+//        self.macket = res.data.data
+//        console.log(res.data)
+//      }).catch(err=>{
+//        console.log(err)
+//      })
+//// 品牌
+//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
+//        self.brand = res.data.data
+//        console.log(self.brand)
+//      }).catch(err=>{
+//        console.log(err)
+//      })
+////表壳材质
+//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/material`).then(res=>{
+//        self.material = res.data.data
+//      }).catch(err=>{
+//        console.log(err)
+//      })
+//// 成色
+//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/fineness`).then(res=>{
+//        self.fineness = res.data.data
+//      }).catch(err=>{
+//        console.log(err)
+//      })
+//      //      复杂功能
+//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/function`).then(res=>{
+//        self.functionss = res.data.data
+//      }).catch(err=>{
+//        console.log(err)
+//      })
+//      //      机芯类型
+//      self.$http.get(` http://apidev.swisstimevip.com:8000/dict/v1/dict/movement`).then(res=>{
+//        self.movement = res.data.data
+//      }).catch(err=>{
+//        console.log(err)
+//      })
+//      //      表盘形状
+//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/shape `).then(res=>{
+//        self.shape = res.data.data
+//      }).catch(err=>{
+//        console.log(err)
+//      })
     },
     components: {
       Top,  //头部
       Navs, //导航
       Foot  //公共底部
     },
+    watch: {
+      navNum (val) {
+        let that = this
+        if(val === 6) {
+          if(that.moreList && that.moreList.length && that.moreList[1].data.length <= 0) {
+            //  获取数据
+
+            //  机芯类型
+          //  that.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
+           //   if(parseInt(res.data.errcode) === 0) {
+                ///  to do result
+
+                let data = []
+                for(let i=0; i<10; i++) {
+                  data.push({
+                    value: Math.random(),
+                    label: `机芯${Math.random()}`
+                  })
+                }
+                console.log(data)
+
+                let cache = that.moreList[1]
+                cache.data = data
+                that.moreList.splice(1, 1, cache)
+
+            console.log(cache)
+        //      }else {
+            //    that.moreList[1].data = []
+           //   }
+            /*}).catch(err=>{
+              console.log(err)
+            })*/
+          }
+          if(that.moreList && that.moreList.length && that.moreList[2].data.length <= 0) {
+            console.log(1)
+            //  获取数据
+
+            //  表盘形状
+            //  that.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
+            //   if(parseInt(res.data.errcode) === 0) {
+            ///  to do result
+
+            let data1 = []
+            for(let i=0; i<10; i++) {
+              data1.push({
+                value: Math.random(),
+                label: `形状${Math.random()}`
+              })
+            }
+            console.log(data1)
+
+            let cache1 = that.moreList[2]
+            cache1.data = data1
+            that.moreList.splice(2, 1, cache1)
+
+            console.log(cache1)
+            //      }else {
+            //    that.moreList[1].data = []
+            //   }
+            /*}).catch(err=>{
+              console.log(err)
+            })*/
+          }
+          if(that.moreList && that.moreList.length && that.moreList[3].data.length <= 0) {
+            console.log(1)
+            //  获取数据
+
+            //  表盘直径
+            //  that.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
+            //   if(parseInt(res.data.errcode) === 0) {
+            ///  to do result
+
+            let data1 = []
+            for(let i=0; i<10; i++) {
+              data1.push({
+                value: Math.random(),
+                label: `直径${Math.random()}`
+              })
+            }
+            console.log(data1)
+
+            let cache1 = that.moreList[3]
+            cache1.data = data1
+            that.moreList.splice(3, 1, cache1)
+
+            console.log(cache1)
+            //      }else {
+            //    that.moreList[1].data = []
+            //   }
+            /*}).catch(err=>{
+              console.log(err)
+            })*/
+          }
+          if(that.moreList && that.moreList.length && that.moreList[4].data.length <= 0) {
+            //  获取数据
+            //  机芯类型
+            //  that.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
+            //   if(parseInt(res.data.errcode) === 0) {
+            ///  to do result
+
+            let data4 = []
+            for(let i=0; i<10; i++) {
+              data4.push({
+                value: Math.random(),
+                label: `复杂${Math.random()}`
+              })
+            }
+            console.log(data4)
+
+            let cache4 = that.moreList[4]
+            cache4.data = data4
+            that.moreList.splice(4, 1, cache4)
+
+            console.log(cache4)
+            //      }else {
+            //    that.moreList[1].data = []
+            //   }
+            /*}).catch(err=>{
+              console.log(err)
+            })*/
+          }
+        }
+      }
+    }
   }
 </script>
 <style lang="less" scoped type="text/less">
@@ -477,11 +702,15 @@
           .uls{
             display: flex;
             flex-wrap: wrap;
+            .tag1{
+              cursor: pointer;
+            }
             li{
               width: 20%;
               padding-right: 40px;
               box-sizing: border-box;
               p{
+                cursor: pointer;
                 padding-left: 20px;
                 border-bottom: 1px solid #e6e6e6;
                 line-height: 50px;
@@ -567,6 +796,7 @@
             padding-top: 20px;
             padding-bottom: 15px;
             button{
+              cursor: pointer;
               box-sizing: border-box;
               display: inline-block;
               width: 160px;
@@ -594,6 +824,7 @@
             flex-wrap: wrap;
             padding-bottom: 2px;
             li{
+              cursor: pointer;
               width: 16.5%;
               height: 48px;
               line-height: 48px;
@@ -668,7 +899,8 @@
         padding-bottom: 20px;
         display: flex;
         li{
-          width: 132px;
+          display: flex;
+          justify-content: space-between;
           height: 30px;
           background: #999;
           color: #ebebeb;
@@ -680,6 +912,9 @@
           overflow: hidden;
           text-overflow:ellipsis;
           white-space: nowrap;
+          i{
+            padding-left: 10px;
+          }
         }
       }
       .content{
@@ -765,6 +1000,7 @@
           border: none!important;
         }
         .el-pager{
+          background: none;
           .number,.btn-quicknext,.btn-quickprev{
             border: none;
             font-size: 16px;
@@ -778,6 +1014,9 @@
         }
       }
     }
+    .el-radio-group{
+      width: 100%;
+    }
     .el-radio{
       width: 48%;
       padding-bottom: 18px;
@@ -789,6 +1028,18 @@
           &:after{
             background: #000!important;
           }
+        }
+      }
+    }
+    .el-checkbox{
+      width: 49%;
+      margin-left: 0;
+      padding-bottom: 18px;
+      .el-checkbox__inner{
+        /*background: #fff;*/
+        border-color: #333;
+        &:after{
+          /*border:1px solid #333;*/
         }
       }
     }

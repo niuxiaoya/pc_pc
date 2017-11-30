@@ -11,11 +11,11 @@ module.exports = {
     VIP: `"${http_url}/vip"`
   },
   dev_url: {
-    FRIENDS: '"http://192.168.1.103:8071"',
-    MARKET: '"http://192.168.1.137:8055"',
-    NEWS: '"http://192.168.1.103:8074"',
-    USER: '"http://192.168.1.103:8073"',
-    VIP: '"http://192.168.1.103:8075"'
+    FRIENDS: '"http://192.168.10.104:8071"',
+    MARKET: '"http://192.168.10.104:8055"',
+    NEWS: '"http://192.168.10.104:8074"',
+    USER: '"http://192.168.10.104:8073"',
+    VIP: '"http://192.168.10.104:8075"'
   },
   prov_api: {
     DICT: `"${http_api}/dict/${version}"`,

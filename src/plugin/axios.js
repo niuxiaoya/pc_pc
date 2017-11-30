@@ -2,7 +2,9 @@ import axios from 'axios'
 import SHA1 from '@/plugin/sha1'
 
 let service = axios.create({
-  headers: {}
+  headers: {
+    withCredentials: true
+  }
 })
 const AppId = 'swisstimevip';
 const AppSecret = '469d8b353e271ea4750793fb656cc331d8fd6bc1';

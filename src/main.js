@@ -12,6 +12,7 @@ import Axios from '@/plugin/axios'
 import '@/assets/css/app.less'
 import Moment from 'moment'
 import IdcmComponent from '@/components/index'
+import $ from 'jquery'
 
 Vue.use(IdcmComponent)
 
