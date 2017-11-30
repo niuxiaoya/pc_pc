@@ -121,11 +121,11 @@
         </p>
       </div>
       <ul class="tab">
-        <li v-if="value1">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value2">{{value2}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value3">{{value3}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value4">{{value4}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value5">{{value5}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value1"  @click="clear(1)">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value2" @click="clear(2)">{{value2}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value3" @click="clear(3)">{{value3}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value4" @click="clear(4)">{{value4}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value5" @click="clear(5)">{{value5}}<i><img src="../../assets/img/buy/close.png"></i></li>
         <li v-for="item in values">{{item}}<i><img src="../../assets/img/buy/close.png"></i></li>
       </ul>
       <div class="content">
@@ -302,6 +302,13 @@
           this.p = 1
           this.currentPage1 = 1
         })*/
+      },
+      clear(index){
+        switch (index){
+          case index:
+
+            break
+        }
       },
       tab1(index) {
         switch (index){
@@ -848,6 +855,7 @@
         padding-top: 20px;
         padding-bottom: 20px;
         display: flex;
+        flex-wrap: wrap;
         li{
           display: flex;
           justify-content: space-between;
