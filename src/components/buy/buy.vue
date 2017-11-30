@@ -126,7 +126,7 @@
         <li v-if="value3">{{value3}}<i><img src="../../assets/img/buy/close.png"></i></li>
         <li v-if="value4">{{value4}}<i><img src="../../assets/img/buy/close.png"></i></li>
         <li v-if="value5">{{value5}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value6">{{value6}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-for="item in values">{{item}}<i><img src="../../assets/img/buy/close.png"></i></li>
       </ul>
       <div class="content">
         <ul>
@@ -247,7 +247,7 @@
         value3: '',
         value4: '',
         value5: '',
-        value6: '',
+        values:[],
         content:[],
         pagecount:5,
         keyword: '', //  关键字
@@ -349,13 +349,42 @@
         }
       },
       tab6(index) {
+        let listValue=[];
+        this.values="";
         switch (index){
           case 1:
 //            this.value4=index;
 //            this.navNum=""
+            for(let i=0;i<this.moreList.length;i++){
+              console.log(this.moreList[i].model)
+              this.moreList[i].model=""
+            }
             break;
           case  2:
+            for(let i=0;i<this.moreList.length;i++){
+              let model = this.moreList[i].model
+              let data = this.moreList[i].data
 
+              if(this.moreList[i].type === 'checkbox') {
+                for(let i=0,len=data.length; i<len;i++) {
+                  for(let k in model) {
+                    if(model[k] === data[i].value) {
+                      listValue.push(data[i].label)
+                      break;
+                    }
+                  }
+                }
+              }else {
+                for(let i=0,len=data.length; i<len;i++) {
+                  if(model === data[i].value) {
+                    listValue.push(data[i].label)
+                    break;
+                  }
+                }
+
+              }
+            }
+            this.values=listValue;
             this.navNum=""
             break;
         }
@@ -467,13 +496,11 @@
                     label: `机芯${Math.random()}`
                   })
                 }
-                console.log(data)
 
                 let cache = that.moreList[1]
                 cache.data = data
                 that.moreList.splice(1, 1, cache)
 
-            console.log(cache)
         //      }else {
             //    that.moreList[1].data = []
            //   }
@@ -482,7 +509,6 @@
             })*/
           }
           if(that.moreList && that.moreList.length && that.moreList[2].data.length <= 0) {
-            console.log(1)
             //  获取数据
 
             //  表盘形状
@@ -497,13 +523,11 @@
                 label: `形状${Math.random()}`
               })
             }
-            console.log(data1)
 
             let cache1 = that.moreList[2]
             cache1.data = data1
             that.moreList.splice(2, 1, cache1)
 
-            console.log(cache1)
             //      }else {
             //    that.moreList[1].data = []
             //   }
@@ -512,7 +536,6 @@
             })*/
           }
           if(that.moreList && that.moreList.length && that.moreList[3].data.length <= 0) {
-            console.log(1)
             //  获取数据
 
             //  表盘直径
@@ -527,13 +550,11 @@
                 label: `直径${Math.random()}`
               })
             }
-            console.log(data1)
 
             let cache1 = that.moreList[3]
             cache1.data = data1
             that.moreList.splice(3, 1, cache1)
 
-            console.log(cache1)
             //      }else {
             //    that.moreList[1].data = []
             //   }
@@ -555,13 +576,11 @@
                 label: `复杂${Math.random()}`
               })
             }
-            console.log(data4)
 
             let cache4 = that.moreList[4]
             cache4.data = data4
             that.moreList.splice(4, 1, cache4)
 
-            console.log(cache4)
             //      }else {
             //    that.moreList[1].data = []
             //   }
