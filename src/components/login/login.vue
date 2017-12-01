@@ -6,8 +6,8 @@
         <div class="login">
             <h2>登录</h2>
             <div class="phone">
-                <input type="tel" placeholder='请输入手机号码'>
-                <p class="reminder">手机号码不能为空</p>
+                <input type="tel" placeholder='请输入手机号码' v-model="phone">
+                <p class="reminder" v-if="info">{{info}}</p>
             </div>
             <div class="code">
                 <input type="text" placeholder='请输入6位验证码'>
@@ -16,7 +16,7 @@
             <div class="checks">
                 <input type="checkbox" name="" id="">登录即同意<span>《用户协议》</span>
             </div>
-            <button class="btn">登录</button>
+            <button class="btn" @click="sub">登录</button>
         </div>
       </div>
       <Foot></Foot>
@@ -29,7 +29,37 @@
   export default {
     data(){
       return {
+        phone:"",
+        info:"",
+      }
+    },
+    methods:{
+      sub () {
+        let self = this
+        let reg = /^1(3|4|5|7|8)\d{9}$/
+        var regNum = /^\d{6}$/
+        if (!self.phone) {
+//          self.$toast('手机号不能为空')
+          this.info="手机号不能为空"
+          return false
+        }
 
+//        if(self.postData.country_code==86) {
+//          if (!reg.test(self.postData.tel)) {
+//            self.$toast('手机号错误')
+//            return false
+//          }
+//        }
+//        if (!self.postData.code) {
+//          self.$toast('验证码不能为空')
+//          return false
+//        } else if (!regNum.test(self.postData.code)) {
+//          self.$toast('验证码错误')
+//          return false
+//        } else {
+//          self.$indicator.open();
+//          self.$fun.postObj.post_data(self,`${process.env.API.USER}/login`,self.postData,'/login')
+//        }
       }
     },
     components: {
@@ -87,6 +117,7 @@
                 padding-right: 15px;
               }
               .verification{
+                cursor: pointer;
                   position: absolute;
                   top: 0;
                   right: 0;
@@ -108,6 +139,7 @@
               }
           }
           .btn{
+            cursor: pointer;
               width: 472px;
               height: 50px;
               text-align: center;

@@ -3,7 +3,7 @@
       <Top></Top>
       <Navs :num="6"></Navs>
       <div class="banners">
-        <img src="../../assets/img/auout/about.png" alt="">
+        <img src="../../assets/img/auout/about.jpg" alt="">
       </div>
       <Foot></Foot>
   </div>

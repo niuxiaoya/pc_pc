@@ -21,6 +21,20 @@
               <span>至高礼遇。腕表如空气，顶配即标配。</span>
             </dd>
           </dl>
+          <!--<dl @click="info()" v-for="item,index in vipInfo" :key="index">-->
+            <!--<dt>-->
+              <!--<img :src="item.icon_pic" @click="$router.push({name:'vip/detail',params:{key:index}})">-->
+            <!--</dt>-->
+            <!--<dd>-->
+              <!--<div class="detail">-->
+                <!--<p>{{item.name}} </p>-->
+                <!--<b>详情</b>-->
+              <!--</div>-->
+              <!--<p>瑞时卡 {{item.money}} </p>-->
+              <!--<span>Supreme courtesy. Watch indispensable like air, top as basic. </span>-->
+              <!--<span>至高礼遇。腕表如空气，顶配即标配。</span>-->
+            <!--</dd>-->
+          <!--</dl>-->
         </div>
       </div>
       <Foot></Foot>
@@ -31,11 +45,30 @@
  import Navs from '@/components/nav'
  import Foot from '@/components/foot'
   export default {
+   data(){
+     return{
+       vipInfo:[],
+     }
+   },
    methods:{
      info(){
        this.$router.push('/vip/detail')
      },
    },
+    mounted(){
+     setTimeout(()=>{
+       /**
+        * vip列表
+        */
+//       self.$http.get(`${process.env.API.VIP}/vip/memlevel`).then(res=>{
+//         if(res.data.errcode=='0'){
+//           self.vipInfo = res.data.data.data
+//         }
+//       }).catch(err=>{
+//         console.log(err)
+//       })
+     },500)
+    },
     components: {
       Top,  //头部
       Navs, //导航
@@ -72,6 +105,7 @@
               border-radius: 5px;
               width: 100%;
               height: 352px;
+              cursor: pointer;
               box-shadow: 1px 5px 18px #000;
             }
           }
