@@ -76,25 +76,49 @@
             </ul>
         </div>
         <div class="isShowBox" v-if="navNum==6" style="padding: 0">
-          <ul class="uls ul">
-            <li v-for="item,i in moreList" :key="i">
-              <div @click="change(item, i)">
-                <p>{{item.title}} <img src="../../assets/img/buy/more.png" :class="{'imgShow':item.isSel}"></p>
-              </div>
-              <div v-if="item.isSel">
-                <div v-if="item.type == 'checkbox'">
-                  <el-checkbox-group v-model="item.model">
-                    <el-checkbox v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-checkbox>
-                  </el-checkbox-group>
+          <div class="left">
+             <ul class="uls ul">
+              <li v-for="item,i in moreList" :key="i" v-if="i==0 || i==2 || i==4">
+                <div @click="change(item, i)">
+                  <p>{{item.title}} <img src="../../assets/img/buy/more.png" :class="{'imgShow':item.isSel}"></p>
                 </div>
-                <div v-else>
-                  <el-radio-group v-model="item.model">
-                    <el-radio v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-radio>
-                  </el-radio-group>
+                <div v-if="item.isSel">
+                  <div v-if="item.type == 'checkbox'">
+                    <el-checkbox-group v-model="item.model">
+                      <el-checkbox v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-checkbox>
+                    </el-checkbox-group>
+                  </div>
+                  <div v-else>
+                    <el-radio-group v-model="item.model">
+                      <el-radio v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-radio>
+                    </el-radio-group>
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="right">
+             <ul class="uls ul">
+              <li v-for="item,i in moreList" :key="i" v-if="i==1 || i==3">
+                <div @click="change(item, i)">
+                  <p>{{item.title}} <img src="../../assets/img/buy/more.png" :class="{'imgShow':item.isSel}"></p>
+                </div>
+                <div v-if="item.isSel">
+                  <div v-if="item.type == 'checkbox'">
+                    <el-checkbox-group v-model="item.model">
+                      <el-checkbox v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-checkbox>
+                    </el-checkbox-group>
+                  </div>
+                  <div v-else>
+                    <el-radio-group v-model="item.model">
+                      <el-radio v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-radio>
+                    </el-radio-group>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+         
           <div class="btn">
             <button @click="tab6(1)" >重置</button>
             <button @click="tab6(2)" >确认</button>
@@ -126,7 +150,7 @@
         <li v-if="value3" @click="clear(3)">{{value3}}<i><img src="../../assets/img/buy/close.png"></i></li>
         <li v-if="value4" @click="clear(4)">{{value4}}<i><img src="../../assets/img/buy/close.png"></i></li>
         <li v-if="value5" @click="clear(5)">{{value5}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-for="item in values">{{item}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-for="item in values" @click="clear(6)">{{item}}<i><img src="../../assets/img/buy/close.png"></i></li>
       </ul>
       <div class="content">
         <ul>
@@ -305,9 +329,29 @@
       },
       clear(index){
         switch (index){
-          case index:
-
-            break
+          case 1:
+            this.value1=""
+            break;
+          case 2:
+            this.value2=""
+            break;
+          case 3:
+            this.value3=""
+            break;
+          case 4:
+            this.value4=""
+            break;
+          case 5:
+            this.value5=""
+            break;
+          case 6:
+            // this.value5=""
+            console.log(this.values)
+            for(let i=0;i<this.values.length;i++){
+              console.log(this.values[i])
+              return this.values.splice(i,1)
+            }
+            break;
         }
       },
       tab1(index) {
@@ -686,10 +730,20 @@
               }
             }
           }
+          .left{
+            float: left;
+            width: 50%
+          }
+          .right{
+            float: right;
+            width: 50%
+          }
           .ul{
+            display: block;
             padding: 0 40px;
             li{
-              width: 48.2%;
+              width: 100%;
+              height: auto;
               border-bottom: 1px solid #ccc;
               padding-left: 20px;
               padding-right: 0;
@@ -747,6 +801,7 @@
 
           }
           .btn{
+            clear: both;
             text-align: right;
             border-top: 1px solid #ccc;
             margin-top: 40px;
@@ -857,6 +912,8 @@
         display: flex;
         flex-wrap: wrap;
         li{
+          cursor: pointer;
+          margin-bottom: 20px;
           display: flex;
           justify-content: space-between;
           height: 30px;
