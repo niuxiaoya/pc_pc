@@ -3,7 +3,7 @@ import SHA1 from '@/plugin/sha1'
 
 let service = axios.create({
   headers: {
-    withCredentials: true
+    // withCredentials: true
   }
 })
 const AppId = 'swisstimevip';
@@ -22,6 +22,7 @@ service.interceptors.request.use(function (config) {
     config.headers['AccessToken'] = localStorage.getItem('AccessToken')
     if (localStorage.getItem('userId')) {
       config.headers['Authorization'] = localStorage.getItem('userId')
+      config.headers['HTTP_ACCEPT_LANGUAGE']="zh-cn"
     }
   } else {
     config.headers['RequestToken'] = AppDigest

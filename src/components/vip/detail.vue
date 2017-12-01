@@ -36,7 +36,9 @@
     .mian{
       max-width: 1200px;
       min-width: 1000px;
+      padding: 0 10px;
       padding-top: 50px;
+      box-sizing: border-box;
       margin: 0 auto;
       background: #fff;
       .title{

@@ -38,14 +38,14 @@
         </ul>
         <div class="isShowBox" v-if="navNum==1">
           <ul class="uls">
-            <li v-for="item in brand"  @click="tab1(i)">
-              {{i}
+            <li v-for="item in brand"  @click="tab1(item)">
+              <!--{{brand}-->
 
               <!--<div>-->
                 <!--&lt;!&ndash;<p>{{item.num}}</p>&ndash;&gt;-->
                 <!---->
               <!--</div>-->
-              <p class="tag1" @click="tab1(i)" v-for="i in item.content">{{i}}</p>
+              <p class="tag1" @click="tab1(item.name)" >{{item.name}}</p>
             </li>
           </ul>
         </div>
@@ -200,29 +200,7 @@
         show3: false,
         radio1:1,
         macket:[],//所有
-        brand:[
-          {
-            num:'A',
-            content:[
-              "的位于一个财富",
-              "的位于一个财富",
-              "的位于一个财富",
-            ]
-          },
-          {
-            num:'A',
-            content:[
-              "的位于一个财富",
-              "的位于一个财富",
-            ]
-          },
-          {
-            num:'A',
-            content:[
-              "的位于一个财富",
-            ]
-          },
-        ],// 品牌
+        brand:[],// 品牌
         material:[
           {
             "id": 1,
@@ -410,7 +388,8 @@
         shape:[],// 表盘形状
         currentPage1: 5,
         p: 1,  // 当前页码
-        options2: [{
+        options2: [
+          {
           value: '选项1',
           label: '黄金糕'
         }, {
@@ -516,9 +495,10 @@
         }
       },
       tab1(index) {
+        console.log(index)
         switch (index){
           case index:
-            this.value1=index;
+            this.value1=index.name;
             this.navNum=""
             break;
         }
@@ -568,7 +548,6 @@
 //            this.value4=index;
 //            this.navNum=""
             for(let i=0;i<this.moreList.length;i++){
-              console.log(this.moreList[i].model)
               this.moreList[i].model=this.moreList[i].type === 'checkbox' ? [] : ''
             }
             break;
@@ -576,20 +555,19 @@
             for(let i=0;i<this.moreList.length;i++){
               let model = this.moreList[i].model
               let data = this.moreList[i].data
-
               if(this.moreList[i].type === 'checkbox') {
                 for(let i=0,len=data.length; i<len;i++) {
                   for(let k in model) {
-                    if(model[k] === data[i].value) {
-                      listValue.push(data[i].label)
+                    if(model[k] === data[i].id) {
+                      listValue.push(data[i].name)
                       break;
                     }
                   }
                 }
               }else {
                 for(let i=0,len=data.length; i<len;i++) {
-                  if(model === data[i].value) {
-                    listValue.push(data[i].label)
+                  if(model === data[i].id) {
+                    listValue.push(data[i].name)
                     break;
                   }
                 }
@@ -622,41 +600,41 @@
     created(){
 
     },
-    mounted(){
+    mounted() {
       let self = this
 
       let title = ['售卖状态', '机芯类型', '表盘形状', '表盘直径', '复杂功能']
-      for(let i=0; i<5; i++) {
+      for (let i = 0; i < 5; i++) {
         this.moreList.push({
           isSel: false,
           title: title[i],
           model: i === 4 ? [] : '',
           type: i === 4 ? 'checkbox' : 'radio',
-          data: i === 0 ? [{label: '在售', value: 1}, {label: '已售', value: 2}] : []
+          data: i === 0 ? [{id: 1, name: '在售'}, {id: 2 , name:'已售' }] : []
         })
       }
 
 
       this.getList(1)
 
-       setTimeout(()=>{
-         let self = this;
-         self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
-              self.brand = res.data.data
-              console.log(self.brand)
-              console.log(res.data)
-         }).catch(err=>{
-               console.log(err)
-         })
+      setTimeout(() => {
+        let self = this;
+//        self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res => {
+//          self.brand = res.data.data
+//          console.log(self.brand)
+//          console.log(res.data)
+//        }).catch(err => {
+//          console.log(err)
+//        })
 
-         // 成色
-         self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/fineness`).then(res=>{
-           console.log(res.data.data)
-           self.fineness = res.data.data
-         }).catch(err=>{
-           console.log(err)
-         })
-       },500)
+        // 成色
+        self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/fineness`).then(res => {
+          console.log(res.data.data)
+          self.fineness = res.data.data
+        }).catch(err => {
+          console.log(err)
+        })
+      }, 500)
 //      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/market/buyer/goodsList`).then(res=>{
 //        self.macket = res.data.data
 //        console.log(res.data)
@@ -695,6 +673,45 @@
 //      }).catch(err=>{
 //        console.log(err)
 //      })
+      /**
+       * 品牌
+       */
+      setTimeout(() => {
+        self.brand= [
+          {
+          "initial": "A",
+          "list": [
+            {
+              "id": 3,
+              "name": "爱彼",
+              "file_fid": "32a8c44006ad64275e999bad539c0a18b24d99e1",
+              "initial": "A",
+              "remark": "",
+              "pic": "https://api.swisstimevip.com/user/v1/dict/13e16cd58a14c71771491eade991d8ab61d65fcd.jpg"
+            }
+          ]
+        },
+          {
+            "initial": "B",
+            "list": [
+              {
+                "id": 5,
+                "name": "宝玑",
+                "file_fid": "d43da7714bed31f6daa0a2e878245149cc9f85ae",
+                "initial": "B",
+                "remark": "BREGUET",
+                "pic": "https://api.swisstimevip.com/user/v1/dict/4a8de90c2fd222ac80f5455c5e9f6aeb4ac7b6ec.jpg"
+              }
+            ]
+          },]
+        console.log(self.brand)
+        let arr = []
+        for (let value in self.brand) {
+          arr = arr.concat(self.brand[value].list)
+        }
+        self.brand = arr
+
+      }, 500)
     },
     components: {
       Top,  //头部
@@ -705,203 +722,73 @@
       navNum (val) {
         let that = this
         if(val === 6) {
-          if(that.moreList && that.moreList.length && that.moreList[1].data.length <= 0) {
-            //  获取数据
+          let getData = (obj) => {
+            if(obj.list && obj.list.data.length <= 0) {
+              obj.list.data = []
+              //  表盘形状
+              //  that.$http.get(obj.url).then(res=>{
+              //   if(parseInt(res.data.errcode) === 0) {
+              ///  to do result
 
-            //  机芯类型
-          //  that.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
-           //   if(parseInt(res.data.errcode) === 0) {
-                ///  to do result
-
-                let data = []
-                for(let i=0; i<10; i++) {
-                  data.push({
-                    value: Math.random(),
-                    label: `机芯${Math.random()}`
-                  })
-                }
-
-                let cache = that.moreList[1]
-                cache.data = data
-                that.moreList.splice(1, 1, cache)
-
-        //      }else {
-            //    that.moreList[1].data = []
-           //   }
-            /*}).catch(err=>{
-              console.log(err)
-            })*/
-          }
-          if(that.moreList && that.moreList.length && that.moreList[2].data.length <= 0) {
-            //  获取数据
-
-            //  表盘形状
-            //  that.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
-            //   if(parseInt(res.data.errcode) === 0) {
-            ///  to do result
-
-            let data1 = []
-            data1=  [{
-              "id": 1,
-              "goods_kind_id": 2,
-              "name": "圆形",
-              "remark": "",
-              "pid": 1,
-              "lang": "zh-cn",
-              "goods_kind_name": "手表"
-            },
-              {
-                "id": 2,
+              let data = []
+              data=  [
+                {
+                "id": 1,
                 "goods_kind_id": 2,
-                "name": "酒桶形",
+                "name": "圆形",
                 "remark": "",
-                "pid": 2,
+                "pid": 1,
                 "lang": "zh-cn",
                 "goods_kind_name": "手表"
-              },
-              {
-                "id": 3,
-                "goods_kind_id": 2,
-                "name": "八边形",
-                "remark": "",
-                "pid": 3,
-                "lang": "zh-cn",
-                "goods_kind_name": "手表"
-              },
-              {
-                "id": 4,
-                "goods_kind_id": 1,
-                "name": "鹦鹉螺",
-                "remark": "鹦鹉螺",
-                "pid": 4,
-                "lang": "zh-cn",
-                "goods_kind_name": "手表"
-              },
-              {
-                "id": 5,
-                "goods_kind_id": 1,
-                "name": "鹅蛋形",
-                "remark": "鹅蛋形",
-                "pid": 5,
-                "lang": "zh-cn",
-                "goods_kind_name": "手表"
-              },
-              {
-                "id": 6,
-                "goods_kind_id": 1,
-                "name": "正方形",
-                "remark": "正方形",
-                "pid": 6,
-                "lang": "zh-cn",
-                "goods_kind_name": "手表"
-              },
-              {
-                "id": 7,
-                "goods_kind_id": 1,
-                "name": "十二边形",
-                "remark": "十二边形",
-                "pid": 7,
-                "lang": "zh-cn",
-                "goods_kind_name": "手表"
-              },
-              {
-                "id": 8,
-                "goods_kind_id": 1,
-                "name": "发动机形",
-                "remark": "发动机形",
-                "pid": 8,
-                "lang": "zh-cn",
-                "goods_kind_name": "手表"
-              },
-              {
-                "id": 9,
-                "goods_kind_id": 1,
-                "name": "橄榄形",
-                "remark": "橄榄形",
-                "pid": 9,
-                "lang": "zh-cn",
-                "goods_kind_name": "手表"
-              },
-              {
-                "id": 10,
-                "goods_kind_id": 1,
-                "name": "长方形",
-                "remark": "长方形",
-                "pid": 10,
-                "lang": "zh-cn",
-                "goods_kind_name": "手表"
-              }]
-//            for(let i=0; i<10; i++) {
-//              data1.push({
-//                value: Math.random(),
-//                label: `形状${Math.random()}`
-//              })
-//            }
+                },
+                {
+                  "id": 2,
+                  "goods_kind_id": 2,
+                  "name": "酒桶形",
+                  "remark": "",
+                  "pid": 2,
+                  "lang": "zh-cn",
+                  "goods_kind_name": "手表"
+                },
+                {
+                  "id": 3,
+                  "goods_kind_id": 2,
+                  "name": "八边形",
+                  "remark": "",
+                  "pid": 3,
+                  "lang": "zh-cn",
+                  "goods_kind_name": "手表"
+                }]
 
-            let cache1 = that.moreList[2]
-            cache1.data = data1
-            that.moreList.splice(2, 1, cache1)
+             obj.list.data = data
 
-            //      }else {
-            //    that.moreList[1].data = []
-            //   }
-            /*}).catch(err=>{
-              console.log(err)
-            })*/
-          }
-          if(that.moreList && that.moreList.length && that.moreList[3].data.length <= 0) {
-            //  获取数据
-
-            //  表盘直径
-            //  that.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
-            //   if(parseInt(res.data.errcode) === 0) {
-            ///  to do result
-
-            let data1 = []
-            for(let i=0; i<10; i++) {
-              data1.push({
-                value: Math.random(),
-                label: `直径${Math.random()}`
-              })
+              //      }else {
+              //    obj.data = []
+              //   }
+              /*}).catch(err=>{
+                console.log(err)
+              })*/
             }
-
-            let cache1 = that.moreList[3]
-            cache1.data = data1
-            that.moreList.splice(3, 1, cache1)
-
-            //      }else {
-            //    that.moreList[1].data = []
-            //   }
-            /*}).catch(err=>{
-              console.log(err)
-            })*/
           }
-          if(that.moreList && that.moreList.length && that.moreList[4].data.length <= 0) {
-            //  获取数据
-            //  机芯类型
-            //  that.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
-            //   if(parseInt(res.data.errcode) === 0) {
-            ///  to do result
 
-            let data4 = []
-            for(let i=0; i<10; i++) {
-              data4.push({
-                value: Math.random(),
-                label: `复杂${Math.random()}`
-              })
-            }
 
-            let cache4 = that.moreList[4]
-            cache4.data = data4
-            that.moreList.splice(4, 1, cache4)
+          getData({
+            list: that.moreList[1],
+            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`
+          })
+          getData({
+            list: that.moreList[2],
+            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`
+          })
+          getData({
+            list: that.moreList[3],
+            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`
+          })
+          getData({
+            list: that.moreList[4],
+            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`
+          })
 
-            //      }else {
-            //    that.moreList[1].data = []
-            //   }
-            /*}).catch(err=>{
-              console.log(err)
-            })*/
-          }
         }
       }
     }
@@ -910,9 +797,10 @@
 <style lang="less" scoped type="text/less">
   .Buy{
     .mian{
+      box-sizing:border-box;
       max-width: 1200px;
       min-width: 1000px;
-      padding: 40px 0 60px;
+      padding: 40px 10px 60px;
       margin: 0 auto;
       box-sizing: border-box;
       .nav{
@@ -1120,7 +1008,7 @@
             padding-bottom: 10px;
             li{
               cursor: pointer;
-              width: 16.5%;
+              width: 16.4%;
               height: 48px;
               line-height: 48px;
               padding-left: 20px;
@@ -1228,7 +1116,7 @@
           display: flex;
           flex-wrap: wrap;
           li{
-            width: 32%;
+            width: 31.8%;
             max-width: 386px;
             max-height: 533px;
             background: #fff;

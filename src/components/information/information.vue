@@ -69,9 +69,10 @@
 <style type="text/less" lang="less" scoped>
   .Information{
     .mian{
-      min-width: 1200px;
+      box-sizing:border-box;
+      max-width: 1200px;
       min-width: 1000px;
-      padding: 50px 0 30px;
+      padding: 50px 10px 30px;
       margin: 0 auto;
       background: #fff;
       .title{

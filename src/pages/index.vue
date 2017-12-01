@@ -189,15 +189,15 @@
 
           },
         data:[
-          {
-            cont:"海使型",
-            price:"$3,000",
-            img:[
-              {
-                photo:require('../assets/img/bdfl.jpg'),
-              },
-            ]
-          }
+//          {
+//            cont:"海使型",
+//            price:"$3,000",
+//            img:[
+//              {
+//                photo:require('../assets/img/bdfl.jpg'),
+//              },
+//            ]
+//          }
         ],
         tab2:
           {
@@ -380,7 +380,7 @@
 //      品牌手表全部请求
       this.$http.get(`${process.env.API.DICT}/dict/brand?is_pc=1`).then(res=>{
         if(res.data.data.length!=0){
-          this.datas=res.data.data//.splice(0,5);
+          this.datas=res.data.data.splice(0,5);
           console.log(res.data)
           this.navId=this.datas[0].id
           for(var i=0;i<this.datas.length;i++){
@@ -414,6 +414,7 @@
     height: 100%;
   }
     .wraps{
+      box-sizing:border-box;
       background: #fafafa;
       min-width: 1024px;
       position: relative;
@@ -434,13 +435,16 @@
       }
       .center{
         margin: 0 auto;
-        min-width: 1024px;
+        padding:0 10px;
+        min-width: 1000px;
         max-width: 1200px;
         padding-top: 30px;
         .surface{
-          min-width: 1024px;
+          padding:0 10px;
+          min-width: 960px;
           max-width: 1200px;
           padding-top: 100px;
+          box-sizing:border-box;
           .title{
             position: relative;
             height: 115px;
@@ -485,6 +489,8 @@
               background: #fff;
               text-align: center;
               dt{
+                width: 364px;
+                height:310px;
                 img{
                   width: 100%;
                   height: 306px;

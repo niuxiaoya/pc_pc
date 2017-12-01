@@ -3,9 +3,6 @@
       <Top></Top>
       <Navs :num="3"></Navs>
       <div class="vips">
-        <div class="title">
-          Join SWISS TIME VIP enjoy unlimited glory and honor
-        </div>
         <div class="content">
           <dl @click="info()">
             <dt>
@@ -84,23 +81,23 @@
         max-width: 1200px;
         min-width:1000px;
         box-sizing: border-box;
-        padding: 0 70px;
+        padding: 0 10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        .title{
-          text-align: center;
-          height: auto;
-          line-height: 160px;
-          margin-bottom: 20px ;
-          font-size: 34px;
-        }
       .content{
-        width: 555px;
+        padding-top:160px;
+        min-width: 1200px;
+        max-width:1000px;
         height: auto;
         margin: 0 auto;
+        background: url("../../assets/img/vip/back.png");
+        background-size: 100%;
+        text-agin:center;
         dl{
+          width: 555px;
           padding-bottom: 70px;
+          margin: 0 auto;
           dt{
             img{
               border-radius: 5px;
