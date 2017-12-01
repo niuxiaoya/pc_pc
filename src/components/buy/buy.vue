@@ -88,12 +88,12 @@
                 <div v-if="item.isSel">
                   <div v-if="item.type == 'checkbox'">
                     <el-checkbox-group v-model="item.model">
-                      <el-checkbox v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-checkbox>
+                      <el-checkbox v-for="el,k in item.data" :key="k" :label="el.id">{{ el.name }}</el-checkbox>
                     </el-checkbox-group>
                   </div>
                   <div v-else>
                     <el-radio-group v-model="item.model">
-                      <el-radio v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-radio>
+                      <el-radio v-for="el,k in item.data" :key="k" :label="el.id">{{ el.name }}</el-radio>
                     </el-radio-group>
                   </div>
                 </div>
@@ -107,17 +107,13 @@
                   <p>{{item.title}} <img src="../../assets/img/buy/more.png" :class="{'imgShow':item.isSel}"></p>
                 </div>
                 <div v-if="item.isSel">
-                  <div v-if="item.type == 'checkbox'">
-                    <el-checkbox-group v-model="item.model">
-                      <el-checkbox v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-checkbox>
-                    </el-checkbox-group>
-                  </div>
-                  <div v-else>
+
+
                     <el-radio-group v-model="item.model">
-                      <el-radio v-for="el,k in item.data" :key="k" :label="el.value">{{ el.label }}</el-radio>
+                      <el-radio v-for="el,k in item.data" :key="k" :label="el.id">{{ el.name }}</el-radio>
                     </el-radio-group>
                   </div>
-                </div>
+
               </li>
             </ul>
           </div>
@@ -645,10 +641,20 @@
 
        setTimeout(()=>{
          let self = this;
-         self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{self.brand = res.data.data
+         self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
+              self.brand = res.data.data
               console.log(self.brand)
+              console.log(res.data)
          }).catch(err=>{
                console.log(err)
+         })
+
+         // 成色
+         self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/fineness`).then(res=>{
+           console.log(res.data.data)
+           self.fineness = res.data.data
+         }).catch(err=>{
+           console.log(err)
          })
        },500)
 //      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/market/buyer/goodsList`).then(res=>{
@@ -670,12 +676,7 @@
 //      }).catch(err=>{
 //        console.log(err)
 //      })
-//// 成色
-//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/fineness`).then(res=>{
-//        self.fineness = res.data.data
-//      }).catch(err=>{
-//        console.log(err)
-//      })
+
 //      //      复杂功能
 //      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/function`).then(res=>{
 //        self.functionss = res.data.data
@@ -740,12 +741,102 @@
             ///  to do result
 
             let data1 = []
-            for(let i=0; i<10; i++) {
-              data1.push({
-                value: Math.random(),
-                label: `形状${Math.random()}`
-              })
-            }
+            data1=  [{
+              "id": 1,
+              "goods_kind_id": 2,
+              "name": "圆形",
+              "remark": "",
+              "pid": 1,
+              "lang": "zh-cn",
+              "goods_kind_name": "手表"
+            },
+              {
+                "id": 2,
+                "goods_kind_id": 2,
+                "name": "酒桶形",
+                "remark": "",
+                "pid": 2,
+                "lang": "zh-cn",
+                "goods_kind_name": "手表"
+              },
+              {
+                "id": 3,
+                "goods_kind_id": 2,
+                "name": "八边形",
+                "remark": "",
+                "pid": 3,
+                "lang": "zh-cn",
+                "goods_kind_name": "手表"
+              },
+              {
+                "id": 4,
+                "goods_kind_id": 1,
+                "name": "鹦鹉螺",
+                "remark": "鹦鹉螺",
+                "pid": 4,
+                "lang": "zh-cn",
+                "goods_kind_name": "手表"
+              },
+              {
+                "id": 5,
+                "goods_kind_id": 1,
+                "name": "鹅蛋形",
+                "remark": "鹅蛋形",
+                "pid": 5,
+                "lang": "zh-cn",
+                "goods_kind_name": "手表"
+              },
+              {
+                "id": 6,
+                "goods_kind_id": 1,
+                "name": "正方形",
+                "remark": "正方形",
+                "pid": 6,
+                "lang": "zh-cn",
+                "goods_kind_name": "手表"
+              },
+              {
+                "id": 7,
+                "goods_kind_id": 1,
+                "name": "十二边形",
+                "remark": "十二边形",
+                "pid": 7,
+                "lang": "zh-cn",
+                "goods_kind_name": "手表"
+              },
+              {
+                "id": 8,
+                "goods_kind_id": 1,
+                "name": "发动机形",
+                "remark": "发动机形",
+                "pid": 8,
+                "lang": "zh-cn",
+                "goods_kind_name": "手表"
+              },
+              {
+                "id": 9,
+                "goods_kind_id": 1,
+                "name": "橄榄形",
+                "remark": "橄榄形",
+                "pid": 9,
+                "lang": "zh-cn",
+                "goods_kind_name": "手表"
+              },
+              {
+                "id": 10,
+                "goods_kind_id": 1,
+                "name": "长方形",
+                "remark": "长方形",
+                "pid": 10,
+                "lang": "zh-cn",
+                "goods_kind_name": "手表"
+              }]
+//            for(let i=0; i<10; i++) {
+//              data1.push({
+//                value: Math.random(),
+//                label: `形状${Math.random()}`
+//              })
+//            }
 
             let cache1 = that.moreList[2]
             cache1.data = data1
@@ -826,15 +917,16 @@
       box-sizing: border-box;
       .nav{
         text-align: center;
+        border: 1px solid #ccc;
         height: 45px;
         display: flex;
         margin-bottom: 20px;
         position: relative;
         li{
+          /*border-right: 1px solid #ccc;*/
           cursor: pointer;
           flex: 1;
           height: 45px;
-          border: 1px solid #ccc;
           line-height: 45px;
           border-right: none;
           text-align: center;
@@ -842,9 +934,26 @@
           font-size: 16px;
           background: #f1f1f1;
           transition: all .4s;
-          &:last-child{
-            border-right: 1px solid #ccc;
+          position: relative;
+          &:before{
+            content: '';
+            width: 1px;
+            height: 45px;
+            background: #ccc;
+            position: absolute;
+            right: 0;
+            top: 0;
           }
+          &:last-child{
+            &:before{
+              content: '';
+              width: 0;
+              height: 0;
+            }
+          }
+          /*&:last-child{*/
+            /*border-right: 1px solid #ccc;*/
+          /*}*/
           /*&:hover{*/
             /*background: #333;*/
             /*color: #fff;*/
