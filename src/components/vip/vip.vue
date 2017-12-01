@@ -1,0 +1,41 @@
+<template>
+  <div class="VIP">
+      <Top></Top>
+      <Navs :num="4"></Navs>
+      <div class="banners">
+        <img src="../../assets/img/auout/about.png" alt="">
+      </div>
+      <Foot></Foot>
+  </div>
+</template>
+<script>
+ import Top from '@/components/top'
+ import Navs from '@/components/nav'
+ import Foot from '@/components/foot'
+  export default {
+    components: {
+      Top,  //头部
+      Navs, //导航
+      Foot  //公共底部
+    },
+  }
+</script>
+<style lang="less" scoped type="text/less">
+  .story {
+    min-width: 1024px;
+    max-width: 1200px;
+  }
+</style>
+<style type="text/less" lang="less" scoped>
+  .VIP{
+    .banners{
+        margin:0 auto;
+        width: 1220px;
+        min-width:1024px;
+        img{
+          width: 100%;
+          height: auto;
+        }
+    }
+  }
+</style>
