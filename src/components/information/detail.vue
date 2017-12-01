@@ -89,7 +89,6 @@
         padding-left: 30px;
         padding-right: 30px;
         border-bottom: 1px solid #e6e6e6;
-        font-weight: bold;
         overflow: hidden;
         .matter{
           float: left;

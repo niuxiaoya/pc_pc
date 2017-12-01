@@ -7,7 +7,7 @@
           Join SWISS TIME VIP enjoy unlimited glory and honor
         </div>
         <div class="content">
-          <dl>
+          <dl @click="info()">
             <dt>
               <img src="../../assets/img/bdfl.jpg" alt="">
             </dt>
@@ -31,6 +31,11 @@
  import Navs from '@/components/nav'
  import Foot from '@/components/foot'
   export default {
+   methods:{
+     info(){
+       this.$router.push('/vip/detail')
+     },
+   },
     components: {
       Top,  //头部
       Navs, //导航
