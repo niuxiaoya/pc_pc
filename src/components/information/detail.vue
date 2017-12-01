@@ -77,8 +77,8 @@
 <style type="text/less" lang="less" scoped>
   .Detail{
     .mian{
-      width: 1200px;
-      min-width: 1024px;
+      max-width: 1200px;
+      min-width: 1000px;
       padding-top: 50px;
       margin: 0 auto;
       background: #fff;

@@ -20,18 +20,12 @@
     },
   }
 </script>
-<style lang="less" scoped type="text/less">
-  .story {
-    min-width: 1024px;
-    max-width: 1200px;
-  }
-</style>
 <style type="text/less" lang="less" scoped>
   .About{
     .banners{
+        min-width: 1000px;
+        max-width: 1200px;
         margin:0 auto;
-        width: 1220px;
-        min-width:1024px;
         img{
           width: 100%;
           height: auto;

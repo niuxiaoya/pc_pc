@@ -55,7 +55,7 @@
 //            this.$router.push('/wealthmanag')
             break;
           case 3:
-//            this.$router.push('/lain')
+            this.$router.push('/vip')
             break;
           case 4:
            this.$router.push('/information')
@@ -102,9 +102,12 @@
         }
       }
       .lis{
-        position: absolute;
-        right: -200px;
-        top: 0;
+        /*position: absolute;*/
+        /*right: -200px;*/
+        /*top: 0;*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
         i{
           display: inline-block;
           padding-right: 20px;

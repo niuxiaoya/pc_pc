@@ -43,6 +43,7 @@
     font-size: 16px;
     background: #fafafa;
     min-height: 100vh;
+    min-width: 1000px;
     /*position: relative;*/
     /*margin-bottom: 56px;*/
     /*margin-top: 100px;*/

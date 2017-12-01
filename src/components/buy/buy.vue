@@ -118,7 +118,7 @@
               </li>
             </ul>
           </div>
-         
+
           <div class="btn">
             <button @click="tab6(1)" >重置</button>
             <button @click="tab6(2)" >确认</button>
@@ -142,6 +142,7 @@
         </p>
         <p class="sel">
           <input type="text" v-model="keyword" @keyup.enter="search()" placeholder="请输入关键字">
+          <span class="imgs"><img src="../../assets/img/search.png" alt=""></span>
         </p>
       </div>
       <ul class="tab">
@@ -647,10 +648,11 @@
 <style lang="less" scoped type="text/less">
   .Buy{
     .mian{
-      width: 1200px;
-      min-width: 1024px;
+      max-width: 1200px;
+      min-width: 1000px;
       padding: 40px 0 60px;
       margin: 0 auto;
+      box-sizing: border-box;
       .nav{
         text-align: center;
         height: 45px;
@@ -897,12 +899,18 @@
           }
         }
         .sel{
+          position: relative;
           input{
             width: 227px;
             height: 37px;
             border: #ccc solid 1px;
             padding: 0 30px 0 10px;
             box-sizing: border-box;
+          }
+          .imgs{
+            position: absolute;
+            right: 5px;
+            top: 10px;
           }
         }
       }
@@ -939,8 +947,9 @@
           display: flex;
           flex-wrap: wrap;
           li{
-            width: 386px;
-            height: 533px;
+            width: 32%;
+            max-width: 386px;
+            max-height: 533px;
             background: #fff;
             margin-right: 20px;
             box-sizing: border-box;
