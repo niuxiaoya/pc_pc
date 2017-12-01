@@ -7,10 +7,8 @@
         <div class="matter">当前位置 : 会籍 > 详情</div>
       </div>
       <div class="content">
-
-      </div>
-      <div class="page">
-
+          <div class="titles">会籍章程</div>
+          <p>的武器都纷纷</p>
       </div>
     </div>
     <Foot></Foot>
@@ -57,6 +55,16 @@
       .content{
         background: url("../../assets/img/vip/back.png");
         height: 1500px;
+        background-size: 100%;
+        text-align: center;
+        .titles{
+          padding-top: 186px;
+          font-size: 24px;
+          padding-bottom: 60px;
+        }
+        p{
+          line-height: 36px;
+        }
       }
     }
   }

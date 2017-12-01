@@ -5,32 +5,32 @@
     <div class="mian">
       <div class="mins">
         <ul class="nav">
-          <li @click="navNum = 1" :class="{'navActive':navNum==1}">
+          <li @click="navNum = (navNum != 1)?1:0" :class="{'navActive':navNum==1}">
             品牌
             <img src="../../assets/img/buy/xjt.png" v-if="navNum!=1">
             <img src="../../assets/img/buy/close.png" v-if="navNum==1">
           </li>
-          <li @click="navNum = 2" :class="{'navActive':navNum==2}">
+          <li  @click="navNum = (navNum != 2)?2:0" :class="{'navActive':navNum==2}">
             成色
             <img src="../../assets/img/buy/xjt.png" v-if="navNum!=2">
             <img src="../../assets/img/buy/close.png" v-if="navNum==2">
           </li>
-          <li @click="navNum = 3" :class="{'navActive':navNum==3}">
+          <li @click="navNum = (navNum != 3)?3:0"  :class="{'navActive':navNum==3}">
             价格
             <img src="../../assets/img/buy/xjt.png" v-if="navNum!=3">
             <img src="../../assets/img/buy/close.png" v-if="navNum==3">
           </li>
-          <li @click="navNum = 4" :class="{'navActive':navNum==4}">
+          <li  @click="navNum = (navNum != 4)?4:0"  :class="{'navActive':navNum==4}">
             性别
             <img src="../../assets/img/buy/xjt.png" v-if="navNum!=4">
             <img src="../../assets/img/buy/close.png" v-if="navNum==4">
           </li>
-          <li @click="navNum = 5" :class="{'navActive':navNum==5}">
+          <li  @click="navNum = (navNum != 5)?5:0" :class="{'navActive':navNum==5}">
             表壳材质
             <img src="../../assets/img/buy/xjt.png" v-if="navNum!=5">
             <img src="../../assets/img/buy/close.png" v-if="navNum==5">
           </li>
-          <li @click="navNum = 6" :class="{'navActive':navNum==6}">
+          <li @click="navNum = (navNum != 6)?6:0;tab6(1);" :class="{'navActive':navNum==6}">
             更多
             <img src="../../assets/img/buy/xjt.png" v-if="navNum!=6">
             <img src="../../assets/img/buy/close.png" v-if="navNum==6">
@@ -38,17 +38,20 @@
         </ul>
         <div class="isShowBox" v-if="navNum==1">
           <ul class="uls">
-            <li v-for="item in brand">
-              <div>
-                <p>{{item.num}}</p>
-                <p class="tag1" @click="tab1(i)" v-for="i in item.content">{{i}}</p>
-              </div>
+            <li v-for="item in brand"  @click="tab1(i)">
+              {{i}
+
+              <!--<div>-->
+                <!--&lt;!&ndash;<p>{{item.num}}</p>&ndash;&gt;-->
+                <!---->
+              <!--</div>-->
+              <p class="tag1" @click="tab1(i)" v-for="i in item.content">{{i}}</p>
             </li>
           </ul>
         </div>
         <div class="isShowBox sexBox padd" v-if="navNum==2">
           <div class="sex">
-            <p class="tab2" @click="tab2(item)" v-for="item in fineness">{{item}}</p>
+            <p class="tab2" @click="tab2(item.name)" v-for="item in fineness">{{item.name}}</p>
           </div>
         </div>
         <div class="isShowBox" v-if="navNum==3" style="padding: 0">
@@ -72,7 +75,7 @@
         </div>
         <div class="isShowBox" v-if="navNum==5">
             <ul class="quality">
-             <li @click="tab5(item)" v-for="item in material">{{item}}</li>
+             <li @click="tab5(item.name)" v-for="item in material">{{item.name}}</li>
             </ul>
         </div>
         <div class="isShowBox" v-if="navNum==6" style="padding: 0">
@@ -225,18 +228,179 @@
           },
         ],// 品牌
         material:[
-          '18K玫瑰金',
-          '精钢',
-          '洗洗',
-          '哈哈',
-          '审核',
-          '二位',
-          '是五花',
+          {
+            "id": 1,
+            "goods_kind_id": 2,
+            "name": "白金",
+            "remark": "",
+            "pid": 3,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 2,
+            "goods_kind_id": 2,
+            "name": "碳纤维",
+            "remark": "碳纤维，黑陶瓷，钛合金",
+            "pid": 5,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 3,
+            "goods_kind_id": 2,
+            "name": "精钢",
+            "remark": "陶瓷，精钢",
+            "pid": 6,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 4,
+            "goods_kind_id": 2,
+            "name": "钛合金",
+            "remark": "钛合金，陶瓷",
+            "pid": 8,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 5,
+            "goods_kind_id": 2,
+            "name": "玫瑰金",
+            "remark": "18K玫瑰金,陶瓷",
+            "pid": 12,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 6,
+            "goods_kind_id": 2,
+            "name": "陶瓷",
+            "remark": "黑陶瓷",
+            "pid": 13,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 7,
+            "goods_kind_id": 2,
+            "name": "黄金 ",
+            "remark": "18K黄金 ",
+            "pid": 20,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 8,
+            "goods_kind_id": 2,
+            "name": "铂金",
+            "remark": "",
+            "pid": 24,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 9,
+            "goods_kind_id": 2,
+            "name": "抛光蓝宝石水晶",
+            "remark": "",
+            "pid": 25,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 10,
+            "goods_kind_id": 2,
+            "name": "镀金",
+            "remark": "",
+            "pid": 26,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 11,
+            "goods_kind_id": 2,
+            "name": "钛金属",
+            "remark": "",
+            "pid": 27,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 12,
+            "goods_kind_id": 2,
+            "name": "锻造碳",
+            "remark": "",
+            "pid": 28,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 73,
+            "goods_kind_id": 1,
+            "name": "不锈钢",
+            "remark": "",
+            "pid": 29,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          }
         ],// 表壳材质
         fineness:[
-          "未使用",
-          "99成新",
-          "98成新",
+          {
+            "id": 1,
+            "goods_kind_id": 1,
+            "name": "99成新",
+            "details": "99成新",
+            "pid": 7,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 2,
+            "goods_kind_id": 1,
+            "name": "未使用",
+            "details": "未使用",
+            "pid": 8,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 3,
+            "goods_kind_id": 1,
+            "name": "95新",
+            "details": "95新",
+            "pid": 9,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 4,
+            "goods_kind_id": 1,
+            "name": "90成新",
+            "details": "90成新",
+            "pid": 10,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 5,
+            "goods_kind_id": 1,
+            "name": "98新",
+            "details": "98新",
+            "pid": 11,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          },
+          {
+            "id": 6,
+            "goods_kind_id": 1,
+            "name": "95成新",
+            "details": "95成新",
+            "pid": 12,
+            "lang": "zh-cn",
+            "goods_kind_name": "手表"
+          }
         ],// 成色
         moeny1:'',//最小值
         moeny2:'',//最大值
@@ -409,7 +573,7 @@
 //            this.navNum=""
             for(let i=0;i<this.moreList.length;i++){
               console.log(this.moreList[i].model)
-              this.moreList[i].model=""
+              this.moreList[i].model=this.moreList[i].type === 'checkbox' ? [] : ''
             }
             break;
           case  2:
@@ -479,7 +643,14 @@
 
       this.getList(1)
 
-
+       setTimeout(()=>{
+         let self = this;
+         self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{self.brand = res.data.data
+              console.log(self.brand)
+         }).catch(err=>{
+               console.log(err)
+         })
+       },500)
 //      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/market/buyer/goodsList`).then(res=>{
 //        self.macket = res.data.data
 //        console.log(res.data)
@@ -705,6 +876,7 @@
           .uls{
             display: flex;
             flex-wrap: wrap;
+            padding-bottom: 10px;
             .tag1{
               cursor: pointer;
             }
@@ -718,12 +890,12 @@
                 border-bottom: 1px solid #e6e6e6;
                 line-height: 50px;
                 &:first-child{
-                  border-bottom: 1px solid #ccc;
-                  color: #333;
-                  font-weight: bold;
-                  &:hover{
-                    background: none;
-                  }
+                  /*border-bottom: 1px solid #ccc;*/
+                  /*color: #333;*/
+                  /*font-weight: bold;*/
+                  /*&:hover{*/
+                    /*background: none;*/
+                  /*}*/
                 }
                 &:hover{
                   background: #fafafa;
@@ -836,7 +1008,7 @@
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
-            padding-bottom: 2px;
+            padding-bottom: 10px;
             li{
               cursor: pointer;
               width: 16.5%;
@@ -1060,10 +1232,9 @@
       margin-left: 0;
       padding-bottom: 18px;
       .el-checkbox__inner{
-        /*background: #fff;*/
-        border-color: #333;
+        background: #fff;
         &:after{
-          /*border:1px solid #333;*/
+          border-color: #333;
         }
       }
     }

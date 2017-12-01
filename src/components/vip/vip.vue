@@ -62,7 +62,8 @@
         */
 //       self.$http.get(`${process.env.API.VIP}/vip/memlevel`).then(res=>{
 //         if(res.data.errcode=='0'){
-//           self.vipInfo = res.data.data.data
+////           self.vipInfo = res.data.data.data
+//           console.log(res.data.data.data)
 //         }
 //       }).catch(err=>{
 //         console.log(err)
