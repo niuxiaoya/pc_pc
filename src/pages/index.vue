@@ -1,10 +1,10 @@
 <template>
   <div class="wraps">
+     <Top></Top>
+    <Navs :num="0"></Navs>
     <div class="fixed">
       <img src="../assets/img/kefu.png" alt="">
     </div>
-    <Top></Top>
-    <Navs :num="0"></Navs>
     <!--banner-->
     <Banners></Banners>
 
@@ -414,9 +414,6 @@
     height: 100%;
   }
     .wraps{
-      box-sizing:border-box;
-      background: #fafafa;
-      min-width: 1024px;
       position: relative;
       .fixed{
         position: absolute;
@@ -434,6 +431,8 @@
         align-items: center;
       }
       .center{
+         box-sizing:border-box;
+      background: #fafafa;
         margin: 0 auto;
         padding:0 10px;
         min-width: 1000px;

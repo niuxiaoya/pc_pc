@@ -11,7 +11,7 @@
             </div>
             <div class="code">
                 <input type="text" placeholder='请输入6位验证码'>
-                <p class="verification">获取验证码</p>
+                <p class="verification" @click="Code()">获取验证码</p>
             </div>
             <div class="checks">
                 <input type="checkbox" name="" id="">登录即同意<span>《用户协议》</span>
@@ -34,6 +34,19 @@
       }
     },
     methods:{
+      Code(){
+        // var time=setInterval(()={
+        //   let num=120;
+        //     if(num>0){
+        //       num--;
+        //       $(".verification").text("倒计时"+num+"s")
+        //       $(".verification").attr("disabled", true)
+        //       $(".verification").css({"background":"#333"})
+        //     }else{
+        //       clearInterval(time)
+        //     }
+        // },1000) 
+      },
       sub () {
         let self = this
         let reg = /^1(3|4|5|7|8)\d{9}$/

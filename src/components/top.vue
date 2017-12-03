@@ -1,7 +1,7 @@
 <template>
   <div class="top">
       <div class="img">
-        <img src="../assets/img/logos.png" alt="">
+        <img src="../assets/img/logos.png" alt="" @click="fn">
       </div>
   </div>
 </template>
@@ -9,6 +9,11 @@
   export default {
     props: {
       num: Number
+    },
+    methods:{
+      fn(){
+         this.$router.push('/')
+      }
     }
   }
 </script>
@@ -27,6 +32,7 @@
         align-items: center;
         justify-content: center;
         img{
+          cursor: pointer;
           object-fit: cover;
           width: 179px;
           height: 98px;

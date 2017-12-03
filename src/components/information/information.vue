@@ -22,7 +22,10 @@
           </dl>
         </div>
         <div class="page">
-
+            <!--<span class="item" @click="handlerPage(1)">首页</span>-->
+            <el-pagination layout="prev,pager,next" :page-count="pagecount" @current-change="handlerPage"></el-pagination>
+            <!--<span class="item" @click="handlerPage(pagecount)">尾页</span>-->
+            <span class="item">页数  <i>{{ p }}</i> / <i>{{pagecount}}</i></span>
         </div>
       </div>
       <Foot></Foot>
@@ -35,6 +38,8 @@
   export default {
     data(){
       return {
+        pagecount:5,
+        p:1,
         dataList:[
           {
             p:"你的价格可以买劳力士保罗纽曼代托纳",
@@ -55,6 +60,49 @@
       }
     },
     methods:{
+      /**
+       * 点击页码获取数据
+       * */
+      handlerPage(val) {
+        if(val > 0 && val <= this.pagecount) {
+          this.getList(val)
+          this.p = val
+        }
+      },
+
+      /**
+       * 获取记录列表
+       * 参数 p: 页码
+       * */
+      getList(p) {
+        let url = ''    //  接口地址
+       /* this.$http.get(url, {
+          params: {
+            keyword: this.keyword,
+            p: p,     //  页码
+            rows: 7   //  每页多少条
+          }
+        }).then(res => {*/
+          this.content = []
+          let data = []
+          let rows = 7   //  每页要显示的条数
+          for(let k=0; k<rows; k++) {
+            data.push({
+              p:"你的价格可以买劳力士保罗纽曼代托纳",
+            span:"我敢肯定，许多你的Instagram照片推送的消息和图像的一个观看过去数天的保罗纽曼代托纳6239拥有劳力士保罗纽曼本人。对于门外汉来说，劳力士保罗纽曼daytonas红色细节特征非常罕见的，因此会更有收藏价值。的名字并不是来自任何官方合作，而事实上，保罗·纽曼曾穿了这种特定的手表。所以我们现在说的是手表，这种样式命名，然后收集产生的现象这手表是最狂热的手表收集，并且仅仅因为这一理由，而不是任何钟表，因而成为...",
+            img:require("../../assets/img/bdfl.jpg")
+            })
+          }
+
+        //  this.pagecount = 1   //  总共多少页
+
+          this.dataList = data
+       /* }).catch(() => {
+          this.content = []
+          this.p = 1
+          this.currentPage1 = 1
+        })*/
+      },
       info(){
         this.$router.push('/information/detail')
       }
@@ -117,7 +165,11 @@
         }
       }
       .page{
-        padding: 40px 30px 60px;
+        /*padding: 40px 30px 60px;*/
+        display: flex;
+        border-bottom: 1px solid #e9e9e9;
+        padding: 20px 0;
+        justify-content: flex-end;
       }
     }
   }
