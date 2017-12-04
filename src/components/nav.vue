@@ -56,7 +56,7 @@
           case 4:
            this.$router.push('/information')
             break;
-          case 6:
+          case 5:
            this.$router.push('/about')
            console.log(1)
             break;

@@ -1,7 +1,7 @@
 <template>
   <div class="About">
       <Top></Top>
-      <Navs :num="6"></Navs>
+      <Navs :num="5"></Navs>
       <div class="banners">
         <img src="../../assets/img/auout/about.jpg" alt="">
       </div>

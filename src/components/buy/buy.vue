@@ -157,7 +157,8 @@
       </ul>
       <div class="content">
         <ul>
-           <li v-for="item in content"  @click="openDetail(item)">
+           <li v-for="item in content" >
+             <!--@click="openDetail(item)"-->
             <dl>
               <dt>
               <img :src="item.img">
