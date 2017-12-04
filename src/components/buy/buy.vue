@@ -152,8 +152,10 @@
         <li v-if="value3" @click="clear(3)">{{value3}}<i><img src="../../assets/img/buy/close.png"></i></li>
         <li v-if="value4" @click="clear(4)">{{value4.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
         <li v-if="value5" @click="clear(5)">{{value5.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-for="item in values" @click="clear(6)">{{item}}<i><img src="../../assets/img/buy/close.png"></i></li>
         <li v-if="value6" @click="clear(7)">{{value6}}<i><img src="../../assets/img/buy/close.png"></i></li>
+      </ul>
+      <ul class="tab">
+        <li v-for="(item,key) in values" @click="clears(item,key)">{{item}}<i><img src="../../assets/img/buy/close.png"></i></li>
       </ul>
       <div class="content">
         <ul>
@@ -161,7 +163,7 @@
              <!--@click="openDetail(item)"-->
             <dl>
               <dt>
-              <img :src="item.img">
+              <img :src="item.cover_pic">
               </dt>
               <dd>
                 <p>{{item.title}}</p>
@@ -240,6 +242,7 @@
         value4: '',
         value5: '',
         value6: '',
+        exchange_status:'',//已售
         values:[],
         content:[],
         pagecount:0,
@@ -273,16 +276,16 @@
         console.log(self.value2)
         this.$http.get(url, {
           params: {
-//            keyword: this.keyword,
             p: p,     //  页码
             rows: 12,   //  每页多少条
             title:self.keyword, //关键字
             brand_id:self.value1.pid,// 品牌
             price_l:self.money1,
-            price_h:self.money2,
+            price_h:self.money2?self.money2:-1,
             fineness_id: self.value2.pid,  //成色
             gender: self.value4.pid,   //性别
             material_id: self.value5.pid,   //表壳材质
+//            exchange_status: self.values
           }
         }).then(res => {
           this.content = []
@@ -306,7 +309,7 @@
           this.currentPage1 = 1
         })
       },
-      clear(index){
+      clear(index,k){
         this.getList(1)
         switch (index){
           case 1:
@@ -329,20 +332,26 @@
             this.value5=""
             break;
             this.getList(1)
-          case 6:
-            // this.value5=""
-//            console.log(this.values)
-            for(let i=0;i<this.values.length;i++){
-              console.log(this.values[i])
-              return this.values.splice(i,1)
-            }
-            break;
-            this.getList(1)
           case 7:
             this.value6=""
             break;
             this.getList(1)
         }
+      },
+      clears(item,key){
+        // this.value5=""
+//            console.log(this.values)
+        for(let i=0;i<this.values.length;i++){
+          return this.values.splice(i,1)
+//          if(this.values[0]){
+//            this.exchange_status=k
+//            conosle.log(k)
+//          }
+        }
+
+        console.log(1,this.values)
+        console.log(1)
+        this.getList(1)
       },
       tab1(index) {
         switch (index){
@@ -421,7 +430,8 @@
               }else {
                 for(let i=0,len=data.length; i<len;i++) {
                   if(model === data[i].id) {
-                    listValue.push(data[i].name)
+                    console.log(data[0])
+                    listValue.push(data[i])
                     break;
                   }
                 }
@@ -468,7 +478,6 @@
       },
     },
     created(){
-
     },
     mounted() {
       let self = this
@@ -480,7 +489,7 @@
           title: title[i],
           model: i === 4 ? [] : '',
           type: i === 4 ? 'checkbox' : 'radio',
-          data: i === 0 ? [{id: 1, name: '在售'}, {id: 2 , name:'已售' }] : []
+          data: i === 0 ? [{id: "sale", name: '在售'}, {id: "sold" , name:'已售' }] : [],
         })
       }
 
@@ -552,6 +561,7 @@
               ///  to do result
                   let data = []
                  obj.list.data = res.data.data
+                   console.log(res.data.data)
                  }else {
                   obj.data = []
                  }
@@ -564,7 +574,7 @@
           /**
            * 机芯类型
            */
-          getData({
+          that.movement=getData({
             list: that.moreList[1],
             url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/movement`
           })
@@ -987,6 +997,7 @@
                 img{
                   max-width: 320px;
                   height: 100%;
+                  object-fit: cover
                 }
               }
               dd{
