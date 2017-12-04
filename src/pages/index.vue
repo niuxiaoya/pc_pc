@@ -479,16 +479,16 @@
           }
           .shops{
             max-width: 1200px;
-            min-width: 1024px;
+            min-width: 970px;
             height: 528px;
             display: flex;
             justify-content: space-between;
             .commodity{
-              width: 364px;
+              width: 30%;
               background: #fff;
               text-align: center;
               dt{
-                width: 364px;
+                width: 100%;
                 height:310px;
                 img{
                   width: 100%;

@@ -4,7 +4,6 @@
       <li v-for="(item,index) in dataList"  @click="open(index)" :class="{'topActive':num==index}">{{item.name}}</li>
       <li class="lis">
         <i><img src="../assets/img/people.png" alt="" @click="openLogin" ></i>
-        <i><img src="../assets/img/search.png" alt=""></i>
         <i><img src="../assets/img/shop.png" alt=""></i>
       </li>
     </ul>
@@ -32,9 +31,6 @@
           },
           {
             name: '资讯',
-          },
-          {
-            name: '会员活动',
           },
           {
             name: '关于我们',

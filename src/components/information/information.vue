@@ -107,6 +107,19 @@
         this.$router.push('/information/detail')
       }
     },
+    mounted(){
+      setTimeout(()=>{
+        let self = this;
+        //        全部请求
+        self.$http.get(`${process.env.API.MARKET}/market/buyer/goodsList`).then(res=>{
+          //                                        ${process.env.API.MARKET}/market/buyer/goodsList
+          self.content = res.data.data
+          console.log(res.data.data)
+        }).catch(err=>{
+          console.log(err)
+        })
+      })
+    },
     components: {
       Top,  //头部
       Navs, //导航

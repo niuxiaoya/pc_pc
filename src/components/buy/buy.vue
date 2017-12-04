@@ -39,19 +39,13 @@
         <div class="isShowBox" v-if="navNum==1">
           <ul class="uls">
             <li v-for="item in brand"  @click="tab1(item)">
-              <!--{{brand}-->
-
-              <!--<div>-->
-                <!--&lt;!&ndash;<p>{{item.num}}</p>&ndash;&gt;-->
-                <!---->
-              <!--</div>-->
-              <p class="tag1" @click="tab1(item.name)" >{{item.name}}</p>
+              <p class="tag1" @click="tab1(item)" >{{item.name}}</p>
             </li>
           </ul>
         </div>
         <div class="isShowBox sexBox padd" v-if="navNum==2">
           <div class="sex">
-            <p class="tab2" @click="tab2(item.name)" v-for="item in fineness">{{item.name}}</p>
+            <p class="tab2" @click="tab2(item)" v-for="item in fineness">{{item.name}}</p>
           </div>
         </div>
         <div class="isShowBox" v-if="navNum==3" style="padding: 0">
@@ -70,34 +64,39 @@
         </div>
         <div class="isShowBox sexBox" v-if="navNum==4">
             <div class="sex">
-              <p class="tab2" @click="tab4(item)" v-for="item in sex">{{item}}</p>
+              <p class="tab2" @click="tab4(item)" v-for="item in sex">{{item.name}}</p>
             </div>
         </div>
         <div class="isShowBox" v-if="navNum==5">
             <ul class="quality">
-             <li @click="tab5(item.name)" v-for="item in material">{{item.name}}</li>
+             <li @click="tab5(item)" v-for="item in material">{{item.name}}</li>
             </ul>
         </div>
         <div class="isShowBox" v-if="navNum==6" style="padding: 0">
           <div class="left">
              <ul class="uls ul">
-              <li v-for="item,i in moreList" :key="i" v-if="i==0 || i==2 || i==4">
+              <li v-for="item,i in moreList" :key="i" v-if="i==0 || i==2">
                 <div @click="change(item, i)">
                   <p>{{item.title}} <img src="../../assets/img/buy/more.png" :class="{'imgShow':item.isSel}"></p>
                 </div>
                 <div v-if="item.isSel">
-                  <div v-if="item.type == 'checkbox'">
-                    <el-checkbox-group v-model="item.model">
-                      <el-checkbox v-for="el,k in item.data" :key="k" :label="el.id">{{ el.name }}</el-checkbox>
-                    </el-checkbox-group>
-                  </div>
-                  <div v-else>
                     <el-radio-group v-model="item.model">
                       <el-radio v-for="el,k in item.data" :key="k" :label="el.id">{{ el.name }}</el-radio>
                     </el-radio-group>
-                  </div>
                 </div>
               </li>
+               <li v-for="item,i in moreList" :key="i" v-if="i==4">
+                 <div @click="change(item, i)">
+                   <p>{{item.title}} <img src="../../assets/img/buy/more.png" :class="{'imgShow':item.isSel}"></p>
+                 </div>
+                 <div v-if="item.isSel">
+                   <div v-if="item.type == 'checkbox'">
+                     <el-checkbox-group v-model="item.model">
+                       <el-checkbox v-for="el,k in item.data" :key="k" :label="el.manage.id">{{ el.manage.name }}</el-checkbox>
+                     </el-checkbox-group>
+                   </div>
+                 </div>
+               </li>
             </ul>
           </div>
           <div class="right">
@@ -129,32 +128,36 @@
       <div class="selet">
         <p>
           <span>筛选</span>
-          <el-select v-model="value2" placeholder="价格升序">
-            <el-option
-              v-for="item in options2"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-              :disabled="item.disabled">
-            </el-option>
-          </el-select>
+          <ul class="priceSel">
+            <li @click="navNum = (navNum != 7)?7:0" :class="{'navActive':navNum==6}">
+              品牌
+              <img src="../../assets/img/buy/xjt.png" v-if="navNum!=6">
+              <img src="../../assets/img/buy/close.png" v-if="navNum==6">
+            </li>
+          </ul>
         </p>
         <p class="sel">
           <input type="text" v-model="keyword" @keyup.enter="search()" placeholder="请输入关键字">
           <span class="imgs"><img src="../../assets/img/search.png" alt=""></span>
         </p>
+        <div class="seNews" v-if="navNum==7">
+          <div class="sex">
+            <p  @click="tab7(item)" v-for="item in contentNews">{{item}}</p>
+          </div>
+        </div>
       </div>
       <ul class="tab">
-        <li v-if="value1"  @click="clear(1)">{{value1}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value2" @click="clear(2)">{{value2}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value1"  @click="clear(1)">{{value1.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value2" @click="clear(2)">{{value2.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
         <li v-if="value3" @click="clear(3)">{{value3}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value4" @click="clear(4)">{{value4}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value5" @click="clear(5)">{{value5}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value4" @click="clear(4)">{{value4.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value5" @click="clear(5)">{{value5.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
         <li v-for="item in values" @click="clear(6)">{{item}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-if="value6" @click="clear(7)">{{value6}}<i><img src="../../assets/img/buy/close.png"></i></li>
       </ul>
       <div class="content">
         <ul>
-           <li v-for="item in content">
+           <li v-for="item in content"  @click="openDetail(item)">
             <dl>
               <dt>
               <img :src="item.img">
@@ -201,219 +204,44 @@
         radio1:1,
         macket:[],//所有
         brand:[],// 品牌
-        material:[
-          {
-            "id": 1,
-            "goods_kind_id": 2,
-            "name": "白金",
-            "remark": "",
-            "pid": 3,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 2,
-            "goods_kind_id": 2,
-            "name": "碳纤维",
-            "remark": "碳纤维，黑陶瓷，钛合金",
-            "pid": 5,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 3,
-            "goods_kind_id": 2,
-            "name": "精钢",
-            "remark": "陶瓷，精钢",
-            "pid": 6,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 4,
-            "goods_kind_id": 2,
-            "name": "钛合金",
-            "remark": "钛合金，陶瓷",
-            "pid": 8,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 5,
-            "goods_kind_id": 2,
-            "name": "玫瑰金",
-            "remark": "18K玫瑰金,陶瓷",
-            "pid": 12,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 6,
-            "goods_kind_id": 2,
-            "name": "陶瓷",
-            "remark": "黑陶瓷",
-            "pid": 13,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 7,
-            "goods_kind_id": 2,
-            "name": "黄金 ",
-            "remark": "18K黄金 ",
-            "pid": 20,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 8,
-            "goods_kind_id": 2,
-            "name": "铂金",
-            "remark": "",
-            "pid": 24,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 9,
-            "goods_kind_id": 2,
-            "name": "抛光蓝宝石水晶",
-            "remark": "",
-            "pid": 25,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 10,
-            "goods_kind_id": 2,
-            "name": "镀金",
-            "remark": "",
-            "pid": 26,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 11,
-            "goods_kind_id": 2,
-            "name": "钛金属",
-            "remark": "",
-            "pid": 27,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 12,
-            "goods_kind_id": 2,
-            "name": "锻造碳",
-            "remark": "",
-            "pid": 28,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 73,
-            "goods_kind_id": 1,
-            "name": "不锈钢",
-            "remark": "",
-            "pid": 29,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          }
-        ],// 表壳材质
-        fineness:[
-          {
-            "id": 1,
-            "goods_kind_id": 1,
-            "name": "99成新",
-            "details": "99成新",
-            "pid": 7,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 2,
-            "goods_kind_id": 1,
-            "name": "未使用",
-            "details": "未使用",
-            "pid": 8,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 3,
-            "goods_kind_id": 1,
-            "name": "95新",
-            "details": "95新",
-            "pid": 9,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 4,
-            "goods_kind_id": 1,
-            "name": "90成新",
-            "details": "90成新",
-            "pid": 10,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 5,
-            "goods_kind_id": 1,
-            "name": "98新",
-            "details": "98新",
-            "pid": 11,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          },
-          {
-            "id": 6,
-            "goods_kind_id": 1,
-            "name": "95成新",
-            "details": "95成新",
-            "pid": 12,
-            "lang": "zh-cn",
-            "goods_kind_name": "手表"
-          }
-        ],// 成色
+        material:[],// 表壳材质
+        fineness:[],// 成色
         moeny1:'',//最小值
         moeny2:'',//最大值
         sex:[
-          '男性',
-          '女性',
-          '中性'
+          {
+            pid:1,
+            name: '男性',
+          },
+          {
+            pid:2,
+            name: '女性',
+          },
+          {
+            pid:3,
+            name: '中性',
+          },
         ],//性别
         functionss:[],// 复杂功能
         movement:[],// 机芯类型
         shape:[],// 表盘形状
+        contentNews:[
+          "最新",
+          "人气",
+          "价格升序",
+          "价格降序",
+        ],
         currentPage1: 5,
         p: 1,  // 当前页码
-        options2: [
-          {
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶',
-//          disabled: true
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
         value1:"",
         value2: '',
         value3: '',
         value4: '',
         value5: '',
+        value6: '',
         values:[],
         content:[],
-        pagecount:5,
+        pagecount:0,
         keyword: '', //  关键字
 
         moreList: []
@@ -436,72 +264,93 @@
        * 参数 p: 页码
        * */
       getList(p) {
-        let url = ''    //  接口地址
-       /* this.$http.get(url, {
+        let self=this
+//        order=vgfvcgf=&diameter_l=""&diameter_h=""}&
+//    price_l=${self.money1 || 0}&price_h=${self.money2 || -1}&material_id=""&shape_id=""&function_id=""&fineness_id=""&gender=""&movement_id=""&p=""&rows=10
+        let url = `${process.env.API.MARKET}/market/buyer/goodsList`    //  接口地址
+//          ?title=${self.keyword}&brand_id=${self.value1}&fineness_id=${self.value2}&price_l=${self.money1 || 0}&price_h=${self.money2 || -1}&gender=${self.value4}
+        console.log(self.value2)
+        this.$http.get(url, {
           params: {
-            keyword: this.keyword,
+//            keyword: this.keyword,
             p: p,     //  页码
-            rows: 7   //  每页多少条
+            rows: 12,   //  每页多少条
+            title:self.keyword, //关键字
+            brand_id:self.value1.pid,// 品牌
+            price_l:self.money1,
+            price_h:self.money2,
+            fineness_id: self.value2.pid,  //成色
+            gender: self.value4.pid,   //性别
+            material_id: self.value5.pid,   //表壳材质
           }
-        }).then(res => {*/
+        }).then(res => {
           this.content = []
-          let data = []
-          let rows = 7   //  每页要显示的条数
-          for(let k=0; k<rows; k++) {
-            data.push({
-              img:require("../../assets/img/bdfl.jpg"),
-              title:"标题" + Math.random() * 80,
-              cont:"1",
-              price:"1111",
-              city_name:"bhjdswcx",
-              pv:1
-            })
-          }
-
-        //  this.pagecount = 1   //  总共多少页
-
-          this.content = data
-       /* }).catch(() => {
+//          let data = []
+//          let rows = 7   //  每页要显示的条数
+//          for(let k=0; k<rows; k++) {
+//            data.push({
+//              img:require("../../assets/img/bdfl.jpg"),
+//              title:"标题" + Math.random() * 80,
+//              cont:"1",
+//              price:"1111",
+//              city_name:"bhjdswcx",
+//              pv:1
+//            })
+//          }
+          this.pagecount = res.data.page.total_pages  //  总共多少页
+          this.content = res.data.data
+        }).catch(() => {
           this.content = []
           this.p = 1
           this.currentPage1 = 1
-        })*/
+        })
       },
       clear(index){
+        this.getList(1)
         switch (index){
           case 1:
             this.value1=""
             break;
+            this.getList(1)
           case 2:
             this.value2=""
             break;
+            this.getList(1)
           case 3:
             this.value3=""
             break;
+            this.getList(1)
           case 4:
             this.value4=""
             break;
+            this.getList(1)
           case 5:
             this.value5=""
             break;
+            this.getList(1)
           case 6:
             // this.value5=""
-            console.log(this.values)
+//            console.log(this.values)
             for(let i=0;i<this.values.length;i++){
               console.log(this.values[i])
               return this.values.splice(i,1)
             }
             break;
+            this.getList(1)
+          case 7:
+            this.value6=""
+            break;
+            this.getList(1)
         }
       },
       tab1(index) {
-        console.log(index)
         switch (index){
           case index:
-            this.value1=index.name;
+            this.value1=index;
             this.navNum=""
             break;
         }
+        this.getList(1)
       },
       tab2(index) {
         switch (index){
@@ -510,6 +359,7 @@
             this.navNum=""
             break;
         }
+        this.getList(1)
       },
       tab3(index){
         switch (index){
@@ -518,8 +368,9 @@
             this.moeny2=""
             break;
           case 2:
-            console.log(this.moeny1)
+            this.getList(1)
             this.value3=this.moeny1+"万 - "+this.moeny2+"万";
+
             this.navNum=""
             break;
         }
@@ -531,6 +382,7 @@
             this.navNum=""
             break;
         }
+        this.getList(1)
       },
       tab5(index) {
         switch (index){
@@ -539,6 +391,7 @@
             this.navNum=""
             break;
         }
+        this.getList(1)
       },
       tab6(index) {
         let listValue=[];
@@ -578,6 +431,16 @@
             this.navNum=""
             break;
         }
+        this.getList(1)
+      },
+      tab7(index) {
+        switch (index){
+          case index:
+            this.value6=index;
+            this.navNum=""
+            break;
+        }
+        this.getList(1)
       },
       /**
        * 关键词搜索
@@ -595,7 +458,13 @@
 //            break;
 //        }
         item.isSel=!item.isSel
-      }
+      },
+      /**
+       * 跳转详情页
+       */
+      openDetail(item) {
+        this.$router.push(`/buy/detail?id=${item.gid}`)
+      },
     },
     created(){
 
@@ -619,98 +488,50 @@
 
       setTimeout(() => {
         let self = this;
-//        self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res => {
-//          self.brand = res.data.data
-//          console.log(self.brand)
-//          console.log(res.data)
-//        }).catch(err => {
+        //        全部请求
+//        self.$http.get(`${process.env.API.MARKET}/market/buyer/goodsList`).then(res=>{
+//        //                                        ${process.env.API.MARKET}/market/buyer/goodsList
+//          self.content = res.data.data
+//          console.log(res.data.data)
+//        }).catch(err=>{
 //          console.log(err)
 //        })
-
         // 成色
         self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/fineness`).then(res => {
-          console.log(res.data.data)
+        //          console.log(res.data.data)
           self.fineness = res.data.data
         }).catch(err => {
           console.log(err)
         })
-      }, 500)
-//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/market/buyer/goodsList`).then(res=>{
-//        self.macket = res.data.data
-//        console.log(res.data)
-//      }).catch(err=>{
-//        console.log(err)
-//      })
-//// 品牌
-//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
-//        self.brand = res.data.data
-//        console.log(self.brand)
-//      }).catch(err=>{
-//        console.log(err)
-//      })
-////表壳材质
-//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/material`).then(res=>{
-//        self.material = res.data.data
-//      }).catch(err=>{
-//        console.log(err)
-//      })
-
-//      //      复杂功能
-//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/function`).then(res=>{
-//        self.functionss = res.data.data
-//      }).catch(err=>{
-//        console.log(err)
-//      })
-//      //      机芯类型
-//      self.$http.get(` http://apidev.swisstimevip.com:8000/dict/v1/dict/movement`).then(res=>{
-//        self.movement = res.data.data
-//      }).catch(err=>{
-//        console.log(err)
-//      })
-//      //      表盘形状
-//      self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/shape `).then(res=>{
-//        self.shape = res.data.data
-//      }).catch(err=>{
-//        console.log(err)
-//      })
-      /**
-       * 品牌
-       */
-      setTimeout(() => {
-        self.brand= [
-          {
-          "initial": "A",
-          "list": [
-            {
-              "id": 3,
-              "name": "爱彼",
-              "file_fid": "32a8c44006ad64275e999bad539c0a18b24d99e1",
-              "initial": "A",
-              "remark": "",
-              "pic": "https://api.swisstimevip.com/user/v1/dict/13e16cd58a14c71771491eade991d8ab61d65fcd.jpg"
+        // 品牌
+        self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`).then(res=>{
+          self.brand = res.data.data
+          let arr = []
+          for (let value in self.brand) {
+            arr[value]={
+              name:self.brand[value].name,
+              pid:self.brand[value].id
             }
-          ]
-        },
-          {
-            "initial": "B",
-            "list": [
-              {
-                "id": 5,
-                "name": "宝玑",
-                "file_fid": "d43da7714bed31f6daa0a2e878245149cc9f85ae",
-                "initial": "B",
-                "remark": "BREGUET",
-                "pic": "https://api.swisstimevip.com/user/v1/dict/4a8de90c2fd222ac80f5455c5e9f6aeb4ac7b6ec.jpg"
-              }
-            ]
-          },]
-        console.log(self.brand)
-        let arr = []
-        for (let value in self.brand) {
-          arr = arr.concat(self.brand[value].list)
-        }
-        self.brand = arr
+            arr = arr.concat(self.brand[value].name)
+          }
+          self.brand = arr
+        }).catch(err=>{
+          console.log(err)
+        })
+      //表壳材质
+        self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/material`).then(res=>{
+          self.material = res.data.data
+        }).catch(err=>{
+          console.log(err)
+        })
 
+        //      复杂功能
+        self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/function`).then(res=>{
+          self.functionss = res.data.data
+          console.log( res.data.data)
+        }).catch(err=>{
+          console.log(err)
+        })
       }, 500)
     },
     components: {
@@ -725,72 +546,52 @@
           let getData = (obj) => {
             if(obj.list && obj.list.data.length <= 0) {
               obj.list.data = []
-              //  表盘形状
-              //  that.$http.get(obj.url).then(res=>{
-              //   if(parseInt(res.data.errcode) === 0) {
+                that.$http.get(obj.url).then(res=>{
+                 if(parseInt(res.data.errcode) === 0) {
               ///  to do result
-
-              let data = []
-              data=  [
-                {
-                "id": 1,
-                "goods_kind_id": 2,
-                "name": "圆形",
-                "remark": "",
-                "pid": 1,
-                "lang": "zh-cn",
-                "goods_kind_name": "手表"
-                },
-                {
-                  "id": 2,
-                  "goods_kind_id": 2,
-                  "name": "酒桶形",
-                  "remark": "",
-                  "pid": 2,
-                  "lang": "zh-cn",
-                  "goods_kind_name": "手表"
-                },
-                {
-                  "id": 3,
-                  "goods_kind_id": 2,
-                  "name": "八边形",
-                  "remark": "",
-                  "pid": 3,
-                  "lang": "zh-cn",
-                  "goods_kind_name": "手表"
-                }]
-
-             obj.list.data = data
-
-              //      }else {
-              //    obj.data = []
-              //   }
-              /*}).catch(err=>{
-                console.log(err)
-              })*/
+                  let data = []
+                 obj.list.data = res.data.data
+                 }else {
+                  obj.data = []
+                 }
+                  }).catch(err=>{
+                    console.log(err)
+                  })
             }
           }
 
-
+          /**
+           * 机芯类型
+           */
           getData({
             list: that.moreList[1],
-            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`
+            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/movement`
           })
+          /**
+           * 表盘形状
+           */
           getData({
             list: that.moreList[2],
-            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`
+            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/shape`
           })
+          /**
+           * 表盘直径
+           */
           getData({
             list: that.moreList[3],
             url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`
           })
+          /**
+           * 复杂功能
+           */
           getData({
             list: that.moreList[4],
-            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`
+            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/function`
           })
 
         }
       }
+
     }
   }
 </script>
@@ -1008,7 +809,7 @@
             padding-bottom: 10px;
             li{
               cursor: pointer;
-              width: 16.4%;
+              width: 16%;
               height: 48px;
               line-height: 48px;
               padding-left: 20px;
@@ -1056,11 +857,54 @@
         }
       }
       .selet{
+        position: relative;
         padding-bottom: 20px;
         border-bottom: 1px solid #e6e6e6;
         display: flex;
         justify-content: space-between;
+        .seNews{
+          width:145px;
+          transition: all .4s;
+          position: absolute;
+          top: 30px;
+          left: 42px;
+          background:#f1f1f1;
+          border: 2px solid #ccc;
+          box-sizing: border-box;
+          border-top:none;
+          p{
+            cursor: pointer;
+            line-height: 28px;
+             padding-left:10px;
+            box-sizing: border-box;
+            color: #666;
+            width:143px;
+            &:hover{
+              background: #333;
+              color: #ebebeb;
+            }
+          }
+        }
         p{
+          cursor: pointer;
+          display: flex;
+            .priceSel{
+              width:145px;
+              height: 30px;
+              border: #ccc solid 1px;
+              background: #f1f1f1;
+              color: #666;
+              line-height: 30px;
+              display: flex;
+              box-sizing: border-box;
+              padding: 0 10px;
+              li{
+                width:145px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+          }
           span{
             font-size: 16px;
             color: #666;
