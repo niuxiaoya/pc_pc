@@ -67,7 +67,7 @@
             <p>机芯类型</p> <span>{{dataList.movement_name}}</span>
           </li>
           <li>
-            <p>复杂功能</p> <span>{{dataList.function}}</span>
+            <p>复杂功能</p> <span>{{dataList.function_name}}</span>
           </li>
           <li>
             <p>表盘形状</p> <span>{{dataList.market_price}}</span>
@@ -104,9 +104,9 @@
         dataList:"",
       }
     },
-    created(){
-      console.log(this.$route.query)
-    },
+//    created(){
+//      console.log(this.$route.query)
+//    },
     mounted() {
       setTimeout(()=>{
         let self=this;
@@ -115,10 +115,8 @@
           gid:this.$route.query.id
         }}).then(res=>{
           if(res.data.manage.length!=0) {
-            console.log(res.data.manage)
             res.data.manage.file_pic=res.data.manage.file_pic.split(",")
             this.dataList=res.data.manage
-            console.log(res.data.manage)
 
           }
         }).catch(() => {
@@ -129,7 +127,7 @@
     },
     methods:{
       buy(){
-
+        this.$router.push(`/buy/purchase?id=${this.dataList.gid}`)
       }
     },
     components: {

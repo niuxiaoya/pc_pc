@@ -20,6 +20,7 @@
             <div class="code">
                 <input type="text" placeholder='请输入6位验证码' v-model="postData.code">
                 <button class="verification" @click="Code()">获取验证码</button>
+                 <p class="reminder" v-if="infos">{{infos}}</p>
             </div>
             <div class="checks">
                 <input type="checkbox" name="" id="">登录即同意
@@ -77,56 +78,73 @@
           phone:""
         },
         info:"",
+        infos:"",
       }
     },
     methods:{
        Code(){
+         let self=this;
         var left_time = 120;
          if(this.postData.phone){
-           this.info=""
-           var tt = setInterval(function(){
-             left_time = left_time - 1;
-             if (left_time <= 0) {
-               window.clearInterval(tt);
-               $(".verification").html("重新发送")
-               $(".verification").attr("disabled", false)
-             }
-             else {
-               $(".verification").html('（' + left_time + '）秒后重新发送');
-               $(".verification").attr({"disabled":"disabled"});
-             }
-           }, 1000);
+           let reg = /^1(3|4|5|7|8)\d{9}$/
+           if (!reg.test(self.postData.phone)) {
+             this.info='手机号错误'
+             return false
+           }else{
+             this.info=""
+             var tt = setInterval(function(){
+               left_time = left_time - 1;
+               if (left_time <= 0) {
+                 window.clearInterval(tt);
+                 $(".verification").html("重新发送")
+                 $(".verification").attr("disabled", false)
+               }
+               else {
+                 $(".verification").html('（' + left_time + '）秒后重新发送');
+                 $(".verification").attr({"disabled":"disabled"});
+               }
+             }, 1000);
+           }
+
          }else{
            this.info="手机号不能为空"
          }
 
       },
       sub () {
+        this.infos=""
         let self = this
         let reg = /^1(3|4|5|7|8)\d{9}$/
         var regNum = /^\d{6}$/
-        if (!self.phone) {
-//          self.$toast('手机号不能为空')
+        if (!self.postData.phone) {
           this.info="手机号不能为空"
           return false
         }
 
 //        if(self.postData.country_code==86) {
-//          if (!reg.test(self.postData.tel)) {
-//            self.$toast('手机号错误')
-//            return false
-//          }
+          if (!reg.test(self.postData.phone)) {
+            this.info='手机号错误'
+            return false
+          }
 //        }
         if (!self.postData.code) {
-          self.$toast('验证码不能为空')
+          this.infos='验证码不能为空'
           return false
         }
         else if (!regNum.test(self.postData.code)) {
-          self.$toast('验证码错误')
+          this.infos='验证码错误'
           return false
         } else {
 //          self.$indicator.open();
-//          self.$fun.postObj.post_data(self,`${process.env.API.USER}/login`,self.postData,'/login')
+//          self.$fun.postObj.post_data(self,`http://apidev.swisstimevip.com:8000/system/v1/system/sms`,self.postData,'/login')
+//          this.$router.push('/information/detail')
+          this.$message({
+            type: 'success',
+            message: '登录成功!'
+          });
+          setTimeout(()=>{
+            this.$router.push('/buy')
+          },1000)
         }
       },
       open5() {
@@ -139,6 +157,21 @@
         $(".mark").hide()
           $(".marks").hide()
       }
+    },
+    mounted () {
+//      let self = this
+//      localStorage.removeItem('userId')
+//      setTimeout(()=>{
+//        self.$fun.getObj.get_list(self,`${process.env.API.DICT}/dict/country`,'/dict/country')
+//        self.$http.get(`${process.env.API.NEWS}/news/agreement?name=USER`).then(res=>{
+//          if(res.data.errcode=='0'){
+//            self.xieyi = res.data.data
+//            self.xieyi.publish_time = this.$moment(self.xieyi.publish_time*1000).format('YYYY-MM-DD HH:mm:ss')
+//          }
+//        }).catch(err=>{
+//          console.log(err)
+//        })
+//      },400)
     },
     components: {
       Top,  //头部
@@ -288,6 +321,11 @@
                   color: #fff;
                   border:none;
               }
+            .reminder{
+              font-size: 13px;
+              color: #c11c23;
+              padding-top: 6px;
+            }
           }
           .checks{
               margin-top: 33px;

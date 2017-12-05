@@ -285,7 +285,7 @@
       getList(p) {
         let self=this
         console.log(this.moeny1)
-        this.$http.get(`${process.env.API.MARKET}/market/buyer/goodsList`,{params:{price_l:self.moeny1 ||0,price_h:self.moeny2 || -1,p:p,rows:10,title:self.keyword,brand_id:self.value1.pid,fineness_id: self.value2.pid,gender: self.value4.pid,order:self.value6.id,function_id:self.function.function_id,movement_id:self.function.movement_id,exchange_status:self.function.exchange_status,shape_id:self.function.shape_id,diameter_l:self.function.diameter_l,diameter_h:self.function.diameter_h,material_id: self.value5.pid}}).then(res=>{
+        this.$http.get(`${process.env.API.MARKET}/market/buyer/goodsList`,{params:{price_l:self.moeny1 ||0,price_h:self.moeny2 || -1,p:p,rows:9,title:self.keyword,brand_id:self.value1.pid,fineness_id: self.value2.pid,gender: self.value4.pid,order:self.value6.id,function_id:self.function.function_id,movement_id:self.function.movement_id,exchange_status:self.function.exchange_status,shape_id:self.function.shape_id,diameter_l:self.function.diameter_l,diameter_h:self.function.diameter_h,material_id: self.value5.pid}}).then(res=>{
           this.pagecount = res.data.page.total_pages  //  总共多少页
           this.content = res.data.data
         }).catch(() => {
