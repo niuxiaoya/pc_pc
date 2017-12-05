@@ -490,6 +490,7 @@
           model: i === 4 ? [] : '',
           type: i === 4 ? 'checkbox' : 'radio',
           data: i === 0 ? [{id: "sale", name: '在售'}, {id: "sold" , name:'已售' }] : [],
+          data: i === 3 ? [{id: "sale", name: '在售'}, {id: "sold" , name:'已售' }] : [],
         })
       }
 
@@ -588,10 +589,10 @@
           /**
            * 表盘直径
            */
-          getData({
-            list: that.moreList[3],
-            url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`
-          })
+          // getData({
+          //   list: that.moreList[3],
+          //   url: `http://apidev.swisstimevip.com:8000/dict/v1/dict/brand?is_pc=1`
+          // })
           /**
            * 复杂功能
            */

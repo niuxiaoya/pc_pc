@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="Information">
       <Top></Top>
       <!--<Navs :num="4"></Navs>-->
@@ -11,18 +12,52 @@
             </div>
             <div class="code">
                 <input type="text" placeholder='请输入6位验证码'>
-                <p class="verification" @click="Code()">获取验证码</p>
+                <button class="verification" @click="Code()">获取验证码</button>
             </div>
             <div class="checks">
-                <input type="checkbox" name="" id="">登录即同意<span>《用户协议》</span>
+                <input type="checkbox" name="" id="">登录即同意
+                 <!-- <el-button type="text">点击打开 Message Box</el-button> -->
+                <span @click="open5">《用户协议》</span>
             </div>
             <button class="btn" @click="sub">登录</button>
         </div>
       </div>
       <Foot></Foot>
   </div>
+        <div class="mark">
+        <div class="title">
+          <p>用户协议</p>
+          <span>2017-11-01 10:21</span>
+        </div>
+         <p><span class="close" @click="close">xx</span></p>
+         <div class="cont">
+           <p>
+             先允许我讲一个段子：一投资人在考察一家创业公司，在决定投资的最后时刻，投资人问了公司CEO一个问题：你觉得你们公司
+目前最大的风险是什么？CEO沉思良久，缓缓地回答道：这个…….我们公司目前最大的风险是有一位来自新浪微博的产品经理。
+毫不夸张的说，微博的产品经理是中文互联网行业被黑的最惨的一群人，几乎每一次改版都会被用户批的体无完肤，微博是中文
+互联网里只要减少几个功能就完美的产品……..吐槽微博的新功能似乎变成了一种政治正确。
+           </p>
+            <p>
+             先允许我讲一个段子：一投资人在考察一家创业公司，在决定投资的最后时刻，投资人问了公司CEO一个问题：你觉得你们公司
+目前最大的风险是什么？CEO沉思良久，缓缓地回答道：这个…….我们公司目前最大的风险是有一位来自新浪微博的产品经理。
+毫不夸张的说，微博的产品经理是中文互联网行业被黑的最惨的一群人，几乎每一次改版都会被用户批的体无完肤，微博是中文
+互联网里只要减少几个功能就完美的产品……..吐槽微博的新功能似乎变成了一种政治正确。
+           </p>
+            <p>
+             先允许我讲一个段子：一投资人在考察一家创业公司，在决定投资的最后时刻，投资人问了公司CEO一个问题：你觉得你们公司
+目前最大的风险是什么？CEO沉思良久，缓缓地回答道：这个…….我们公司目前最大的风险是有一位来自新浪微博的产品经理。
+毫不夸张的说，微博的产品经理是中文互联网行业被黑的最惨的一群人，几乎每一次改版都会被用户批的体无完肤，微博是中文
+互联网里只要减少几个功能就完美的产品……..吐槽微博的新功能似乎变成了一种政治正确。
+           </p>
+         </div>
+      </div>
+      <div class="marks">
+       
+      </div>
+    </div>
 </template>
 <script>
+// $router.push('/login')
  import Top from '@/components/top'
  import Navs from '@/components/nav'
  import Foot from '@/components/foot'
@@ -34,18 +69,23 @@
       }
     },
     methods:{
-      Code(){
-        // var time=setInterval(()={
-        //   let num=120;
-        //     if(num>0){
-        //       num--;
-        //       $(".verification").text("倒计时"+num+"s")
-        //       $(".verification").attr("disabled", true)
-        //       $(".verification").css({"background":"#333"})
-        //     }else{
-        //       clearInterval(time)
-        //     }
-        // },1000) 
+       Code(){
+        var left_time = 10;
+        var tt = setInterval(function(){
+        left_time = left_time - 1;
+        if (left_time <= 0) {
+            window.clearInterval(tt);
+            $(".verification").html("重新发送")
+            $(".verification").attr("disabled", false)
+            // $(".verification");
+            // msg.removeAttr('style').attr('style', 'display:none;');
+            // btnSend.removeAttr('style').attr('style', 'display:block');
+        }
+        else {
+            $(".verification").html('（' + left_time + '）秒后重新发送');
+            $(".verification").attr({"disabled":"disabled"});
+        }
+        }, 1000);
       },
       sub () {
         let self = this
@@ -73,6 +113,16 @@
 //          self.$indicator.open();
 //          self.$fun.postObj.post_data(self,`${process.env.API.USER}/login`,self.postData,'/login')
 //        }
+      },
+      open5() {
+        if($(".mark").hide()){
+          $(".mark").show()
+          $(".marks").show()
+        }
+      },
+      close(){
+        $(".mark").hide()
+          $(".marks").hide()
       }
     },
     components: {
@@ -83,7 +133,63 @@
   }
 </script>
 <style type="text/less" lang="less" scoped>
+#app{
+  position: relative;
+}
+ .mark{
+      width: 882px;
+      height: auto;
+      padding:30px;
+      position: absolute;
+      z-index: 9999;
+      background: #fff;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      margin:auto;
+      transition:all .4s;
+      display: none;
+      .close{
+        cursor: pointer;
+      }
+      .title{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #ebebeb;
+        p{
+          font-size: 18px;
+          padding-bottom: 10px;
+        }
+        span{
+          font-size: 14px;
+          color: #999;
+        }
+      }
+      .cont{
+        font-size: 14px;
+        line-height: 36px;
+        p{
+          padding-bottom: 50px;
+        }
+      }
+    }
+    .marks{
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 999;
+      background: #000;
+      opacity: .7;
+      position: absolute;
+      display: none;
+    }
   .Information{
+   
     .mian{
       max-width: 1200px;
       min-width: 1000px;
@@ -141,6 +247,7 @@
                   line-height: 50px;
                   font-size: 16px;
                   color: #fff;
+                  border:none;
               }
           }
           .checks{
@@ -149,6 +256,7 @@
               color: #999;
               span{
                   color: #333;
+                  cursor: pointer;
               }
           }
           .btn{
