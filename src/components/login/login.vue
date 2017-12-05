@@ -75,7 +75,11 @@
     data(){
       return {
         postData:{
-          phone:""
+          phone:"",
+          code:"",
+          terminal:3,
+          country_code:86,
+          country_id:41
         },
         info:"",
         infos:"",
@@ -92,6 +96,20 @@
              return false
            }else{
              this.info=""
+             self.$http.post(`http://apidev.swisstimevip.com:8000/system/v1/system/sms`,{tel:self.postData.phone}).then(res => {
+                         console.log(res.data)
+//               self.fineness = res.data.data
+             }).catch(err => {
+               console.log(err)
+             })
+//             let postData={
+//               phone:"",
+//               code:"",
+//               terminal:3,
+//               country_code:86,
+//               country_id:41
+//             }
+//             self.$http.post(self,`http://apidev.swisstimevip.com:8000/system/v1/login`,self.postData,'/login')
              var tt = setInterval(function(){
                left_time = left_time - 1;
                if (left_time <= 0) {
@@ -136,15 +154,15 @@
           return false
         } else {
 //          self.$indicator.open();
-//          self.$fun.postObj.post_data(self,`http://apidev.swisstimevip.com:8000/system/v1/system/sms`,self.postData,'/login')
+
 //          this.$router.push('/information/detail')
-          this.$message({
-            type: 'success',
-            message: '登录成功!'
-          });
-          setTimeout(()=>{
-            this.$router.push('/buy')
-          },1000)
+//          this.$message({
+//            type: 'success',
+//            message: '登录成功!'
+//          });
+//          setTimeout(()=>{
+//            this.$router.push('/buy')
+//          },1000)
         }
       },
       open5() {

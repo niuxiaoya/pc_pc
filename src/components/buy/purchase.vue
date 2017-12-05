@@ -3,7 +3,15 @@
     <Top></Top>
     <Navs :num="1"></Navs>
     <div class="mian">
-
+        <div class="title">
+          地址信息
+        </div>
+        <ul class="map">
+          <li></li>
+        </ul>
+        <div class="add">
+          添加地址
+        </div>
     </div>
     <Foot></Foot>
   </div>
@@ -24,21 +32,21 @@
       console.log(this.$route.query.id)
     },
     mounted() {
-      setTimeout(()=>{
-        let self=this;
-        this.$http.get(`http://apidev.swisstimevip.com:8000/market/v1/market/buyer/orderplace`,{params:{
-          gid:this.$route.query.id
-        }}).then(res=>{
-          if(res.data.manage.length!=0) {
-//            res.data.manage.file_pic=res.data.manage.file_pic.split(",")
-//            this.dataList=res.data.manage
-            console.log(res.data)
-
-          }
-        }).catch(() => {
-
-        })
-      },500)
+//      setTimeout(()=>{
+//        let self=this;
+//        this.$http.get(`http://apidev.swisstimevip.com:8000/market/v1/market/buyer/orderplace`,{params:{
+//          gid:this.$route.query.id
+//        }}).then(res=>{
+//          if(res.data.manage.length!=0) {
+////            res.data.manage.file_pic=res.data.manage.file_pic.split(",")
+////            this.dataList=res.data.manage
+//            console.log(res.data)
+//
+//          }
+//        }).catch(() => {
+//
+//        })
+//      },500)
 
     },
     components: {
@@ -54,11 +62,31 @@
       box-sizing:border-box;
       max-width: 1200px;
       min-width: 1000px;
-      padding: 60px 0px 100px;
+      padding: 60px 10px 95px;
       margin: 0 auto;
       box-sizing: border-box;
       background: #fff;
-
+      .title{
+        font-size: 24px;
+        color: #333;
+        padding: 0 30px 0;
+        box-sizing: border-box;
+      }
+      .map{
+        display: flex;
+        flex-wrap: wrap;
+        li{
+          margin-right: 30px;
+          &:nth-child(3n){
+            margin-right: 0;
+          }
+        }
+      }
+      .add{
+        width: 151px;
+        height: 40px;
+        border: solid 1px #cccccc;
+      }
     }
   }
 </style>
