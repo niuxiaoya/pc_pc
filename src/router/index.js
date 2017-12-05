@@ -3,6 +3,9 @@ import Router from 'vue-router'
 import Index from '@/pages/index'
 import Buy from '@/components/buy/buy'  //直买
 import BuyDetail from '@/components/buy/detail'  //直买详情
+import Purchase from '@/components/buy/Purchase'  //购买详情
+
+
 import Vip from '@/components/vip/vip'  //会籍
 import VipDeatil from '@/components/vip/detail'  //会籍详情
 import Information from '@/components/information/information'  //资讯
@@ -29,6 +32,11 @@ export default new Router({
       path: '/buy/detail',
       name: 'BuyDetail',
       component: BuyDetail
+    },
+    {
+      path: '/buy/purchase',
+      name: 'Purchase',
+      component: Purchase
     },
     {
       path: '/vip',

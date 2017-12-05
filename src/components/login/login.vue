@@ -1,17 +1,24 @@
 <template>
   <div>
   <div class="Information">
+    <div class="phoness">
+      <p>关于我们</p>
+      <p>
+        <img src="../../assets/img/tel.png" alt="">
+        400-8451-816
+      </p>
+    </div>
       <Top></Top>
       <!--<Navs :num="4"></Navs>-->
       <div class="mian">
         <div class="login">
             <h2>登录</h2>
             <div class="phone">
-                <input type="tel" placeholder='请输入手机号码' v-model="phone">
+                <input type="tel" placeholder='请输入手机号码' v-model="postData.phone">
                 <p class="reminder" v-if="info">{{info}}</p>
             </div>
             <div class="code">
-                <input type="text" placeholder='请输入6位验证码'>
+                <input type="text" placeholder='请输入6位验证码' v-model="postData.code">
                 <button class="verification" @click="Code()">获取验证码</button>
             </div>
             <div class="checks">
@@ -29,7 +36,9 @@
           <p>用户协议</p>
           <span>2017-11-01 10:21</span>
         </div>
-         <p><span class="close" @click="close">xx</span></p>
+         <p><span class="close" @click="close">
+           <img src="../../assets/img/buy/closeh.png" alt="">
+         </span></p>
          <div class="cont">
            <p>
              先允许我讲一个段子：一投资人在考察一家创业公司，在决定投资的最后时刻，投资人问了公司CEO一个问题：你觉得你们公司
@@ -52,7 +61,7 @@
          </div>
       </div>
       <div class="marks">
-       
+
       </div>
     </div>
 </template>
@@ -64,28 +73,33 @@
   export default {
     data(){
       return {
-        phone:"",
+        postData:{
+          phone:""
+        },
         info:"",
       }
     },
     methods:{
        Code(){
-        var left_time = 10;
-        var tt = setInterval(function(){
-        left_time = left_time - 1;
-        if (left_time <= 0) {
-            window.clearInterval(tt);
-            $(".verification").html("重新发送")
-            $(".verification").attr("disabled", false)
-            // $(".verification");
-            // msg.removeAttr('style').attr('style', 'display:none;');
-            // btnSend.removeAttr('style').attr('style', 'display:block');
-        }
-        else {
-            $(".verification").html('（' + left_time + '）秒后重新发送');
-            $(".verification").attr({"disabled":"disabled"});
-        }
-        }, 1000);
+        var left_time = 120;
+         if(this.postData.phone){
+           this.info=""
+           var tt = setInterval(function(){
+             left_time = left_time - 1;
+             if (left_time <= 0) {
+               window.clearInterval(tt);
+               $(".verification").html("重新发送")
+               $(".verification").attr("disabled", false)
+             }
+             else {
+               $(".verification").html('（' + left_time + '）秒后重新发送');
+               $(".verification").attr({"disabled":"disabled"});
+             }
+           }, 1000);
+         }else{
+           this.info="手机号不能为空"
+         }
+
       },
       sub () {
         let self = this
@@ -103,16 +117,17 @@
 //            return false
 //          }
 //        }
-//        if (!self.postData.code) {
-//          self.$toast('验证码不能为空')
-//          return false
-//        } else if (!regNum.test(self.postData.code)) {
-//          self.$toast('验证码错误')
-//          return false
-//        } else {
+        if (!self.postData.code) {
+          self.$toast('验证码不能为空')
+          return false
+        }
+        else if (!regNum.test(self.postData.code)) {
+          self.$toast('验证码错误')
+          return false
+        } else {
 //          self.$indicator.open();
 //          self.$fun.postObj.post_data(self,`${process.env.API.USER}/login`,self.postData,'/login')
-//        }
+        }
       },
       open5() {
         if($(".mark").hide()){
@@ -152,6 +167,9 @@
       display: none;
       .close{
         cursor: pointer;
+        position: absolute;
+        right: 30px;
+        top:20px;
       }
       .title{
         display: flex;
@@ -189,7 +207,28 @@
       display: none;
     }
   .Information{
-   
+    position: relative;
+    .phoness{
+      position: absolute;
+      right: 16%;
+      top: 7px;
+      color: #939699;
+      font-size: 12px;
+      display: flex;
+      p{
+        position: relative;
+        padding-right: 21px;
+        &:last-child{
+          padding-left: 20px;
+        }
+        img{
+          position: absolute;
+          padding-left: 22px;
+          padding-right: 15px;
+          left: -25px;
+        }
+      }
+    }
     .mian{
       max-width: 1200px;
       min-width: 1000px;

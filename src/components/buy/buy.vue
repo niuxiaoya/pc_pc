@@ -92,7 +92,7 @@
                  <div v-if="item.isSel">
                    <div v-if="item.type == 'checkbox'">
                      <el-checkbox-group v-model="item.model">
-                       <el-checkbox v-for="el,k in item.data" :key="k" :label="el.manage.id">{{ el.manage.name }}</el-checkbox>
+                       <el-checkbox v-for="el,k in item.data" :key="k" :label="el">{{ el.manage.name }}</el-checkbox>
                      </el-checkbox-group>
                    </div>
                  </div>
@@ -106,8 +106,6 @@
                   <p>{{item.title}} <img src="../../assets/img/buy/more.png" :class="{'imgShow':item.isSel}"></p>
                 </div>
                 <div v-if="item.isSel">
-
-
                     <el-radio-group v-model="item.model">
                       <el-radio v-for="el,k in item.data" :key="k" :label="el.id">{{ el.name }}</el-radio>
                     </el-radio-group>
@@ -142,25 +140,22 @@
         </p>
         <div class="seNews" v-if="navNum==7">
           <div class="sex">
-            <p  @click="tab7(item)" v-for="item in contentNews">{{item}}</p>
+            <p  @click="tab7(item)" v-for="item in contentNews">{{item.name}}</p>
           </div>
         </div>
       </div>
       <ul class="tab">
-        <li v-if="value1"  @click="clear(1)">{{value1.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value2" @click="clear(2)">{{value2.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value3" @click="clear(3)">{{value3}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value4" @click="clear(4)">{{value4.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value5" @click="clear(5)">{{value5.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
-        <li v-if="value6" @click="clear(7)">{{value6}}<i><img src="../../assets/img/buy/close.png"></i></li>
-      </ul>
-      <ul class="tab">
-        <li v-for="(item,key) in values" @click="clears(item,key)">{{item}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-show="value1"  @click="clear(1,value1)">{{value1.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-show="value2" @click="clear(2,value2)">{{value2.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-show="value3" @click="clear(3,value3)">{{value3}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-show="value4" @click="clear(4,value4)">{{value4.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-show="value5" @click="clear(5,value5)">{{value5.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-show="value6" @click="clear(7,value6)">{{value6.name}}<i><img src="../../assets/img/buy/close.png"></i></li>
+        <li v-show="values.length>0" @click="clears(7,value6)">{{values}}<i><img src="../../assets/img/buy/close.png"></i></li>
       </ul>
       <div class="content">
         <ul>
-           <li v-for="item in content" >
-             <!--@click="openDetail(item)"-->
+           <li v-for="item in content" @click="openDetail(item)">
             <dl>
               <dt>
               <img :src="item.cover_pic">
@@ -195,6 +190,7 @@
   export default {
     data(){
       return {
+        function_name:'',
         navNum:"",
         isSel:false,
         isSel1:false,
@@ -229,10 +225,22 @@
         movement:[],// 机芯类型
         shape:[],// 表盘形状
         contentNews:[
-          "最新",
-          "人气",
-          "价格升序",
-          "价格降序",
+          {
+            name:"最新",
+            id:"create_time"
+          },
+          {
+            name:"人气",
+            id:"pv"
+          },
+          {
+            name:"价格升序",
+            id:"price_h"
+          },
+          {
+            name:"价格降序",
+            id:"price_l"
+          },
         ],
         currentPage1: 5,
         p: 1,  // 当前页码
@@ -247,8 +255,15 @@
         content:[],
         pagecount:0,
         keyword: '', //  关键字
-
-        moreList: []
+        moreList: [],
+        function:{
+          function_id:[],
+          movement_id:'',
+          exchange_status:'',
+          shape_id:'',
+          diameter_l:"",
+          diameter_h:""
+        }
       }
 
     },
@@ -269,38 +284,8 @@
        * */
       getList(p) {
         let self=this
-//        order=vgfvcgf=&diameter_l=""&diameter_h=""}&
-//    price_l=${self.money1 || 0}&price_h=${self.money2 || -1}&material_id=""&shape_id=""&function_id=""&fineness_id=""&gender=""&movement_id=""&p=""&rows=10
-        let url = `${process.env.API.MARKET}/market/buyer/goodsList`    //  接口地址
-//          ?title=${self.keyword}&brand_id=${self.value1}&fineness_id=${self.value2}&price_l=${self.money1 || 0}&price_h=${self.money2 || -1}&gender=${self.value4}
-        console.log(self.value2)
-        this.$http.get(url, {
-          params: {
-            p: p,     //  页码
-            rows: 12,   //  每页多少条
-            title:self.keyword, //关键字
-            brand_id:self.value1.pid,// 品牌
-            price_l:self.money1,
-            price_h:self.money2?self.money2:-1,
-            fineness_id: self.value2.pid,  //成色
-            gender: self.value4.pid,   //性别
-            material_id: self.value5.pid,   //表壳材质
-//            exchange_status: self.values
-          }
-        }).then(res => {
-          this.content = []
-//          let data = []
-//          let rows = 7   //  每页要显示的条数
-//          for(let k=0; k<rows; k++) {
-//            data.push({
-//              img:require("../../assets/img/bdfl.jpg"),
-//              title:"标题" + Math.random() * 80,
-//              cont:"1",
-//              price:"1111",
-//              city_name:"bhjdswcx",
-//              pv:1
-//            })
-//          }
+        console.log(this.moeny1)
+        this.$http.get(`${process.env.API.MARKET}/market/buyer/goodsList`,{params:{price_l:self.moeny1 ||0,price_h:self.moeny2 || -1,p:p,rows:10,title:self.keyword,brand_id:self.value1.pid,fineness_id: self.value2.pid,gender: self.value4.pid,order:self.value6.id,function_id:self.function.function_id,movement_id:self.function.movement_id,exchange_status:self.function.exchange_status,shape_id:self.function.shape_id,diameter_l:self.function.diameter_l,diameter_h:self.function.diameter_h,material_id: self.value5.pid}}).then(res=>{
           this.pagecount = res.data.page.total_pages  //  总共多少页
           this.content = res.data.data
         }).catch(() => {
@@ -308,49 +293,68 @@
           this.p = 1
           this.currentPage1 = 1
         })
+//          params: {
+//            fineness_id: self.value2.pid,  //成色
+//            gender: self.value4.pid,   //性别
+////            material_id: self.value5.pid,   //表壳材质
+////            exchange_status: self.moreList[0].model,  //售卖状态
+////            movement_id: self.moreList[1].model,  //机芯
+////            shape_id:self.moreList[1].model, //形状
+//          }
       },
       clear(index,k){
         this.getList(1)
         switch (index){
           case 1:
             this.value1=""
-            break;
+            k=""
             this.getList(1)
+            break;
           case 2:
             this.value2=""
-            break;
+            k=""
             this.getList(1)
+            break;
           case 3:
             this.value3=""
-            break;
+            this.moeny1=""
+            this.moeny2=""
             this.getList(1)
+            break;
           case 4:
             this.value4=""
-            break;
+            k=""
             this.getList(1)
+            break;
           case 5:
             this.value5=""
-            break;
+            k=""
             this.getList(1)
+            break;
           case 7:
             this.value6=""
-            break;
+            k=""
             this.getList(1)
+            break;
         }
       },
       clears(item,key){
-        // this.value5=""
+         this.values=""
+        this.function.function_id=[]
+        this.function.movement_id=""
+        this.function.exchange_status=""
+        this.function.shape_id=""
+        this.function.diameter_h=""
+        this.function.diameter_l=""
 //            console.log(this.values)
-        for(let i=0;i<this.values.length;i++){
-          return this.values.splice(i,1)
-//          if(this.values[0]){
-//            this.exchange_status=k
-//            conosle.log(k)
-//          }
-        }
 
-        console.log(1,this.values)
-        console.log(1)
+        this.getList(1)
+//        for(let i=0;i<this.values.length;i++){
+//
+//          return this.values.splice(i,1)
+//        }
+
+
         this.getList(1)
       },
       tab1(index) {
@@ -378,9 +382,19 @@
             this.moeny2=""
             break;
           case 2:
+            if(this.moeny1<this.moeny2){
+              this.value3=this.moeny1+"万 - "+this.moeny2+"万";
+            }
+            if(this.moeny1>this.moeny2){
+              this.value3=this.moeny2+"万 - "+this.moeny1+"万";
+            }
+            if(!this.moeny1&&this.moeny2){
+              this.value3=this.moeny2+"万以下"
+            }
+            if(!this.moeny2&&this.moeny1){
+              this.value3=this.moeny1+"万以上"
+            }
             this.getList(1)
-            this.value3=this.moeny1+"万 - "+this.moeny2+"万";
-
             this.navNum=""
             break;
         }
@@ -418,26 +432,59 @@
             for(let i=0;i<this.moreList.length;i++){
               let model = this.moreList[i].model
               let data = this.moreList[i].data
+              let arrs=[];
+              let str;
               if(this.moreList[i].type === 'checkbox') {
                 for(let i=0,len=data.length; i<len;i++) {
                   for(let k in model) {
-                    if(model[k] === data[i].id) {
-                      listValue.push(data[i].name)
+                    if(model[k].manage.id === data[i].manage.id) {
+                      listValue.push(data[i].manage.name)
+                      arrs.push(data[i].manage.id)
                       break;
                     }
                   }
+
                 }
               }else {
                 for(let i=0,len=data.length; i<len;i++) {
                   if(model === data[i].id) {
-                    console.log(data[0])
-                    listValue.push(data[i])
+                    listValue.push(data[i].name)
                     break;
                   }
                 }
 
               }
+              this.function.function_id=arrs.join(",");
+              switch (i){
+                case 0:
+                  for(let a=0;a<data.length;a++){
+                    if(model==data[a].id){
+                      this.function.exchange_status = data[i].id
+                    }
+                  }
+//                  this.function.exchange_status = model
+                  break;
+                case 1:
+                  for(let a=0;a<data.length;a++){
+                    if(model==data[a].id){
+                      this.function.movement_id = data[a].id
+                    }
+                  }
+                  break;
+                case 2:
+                  for(let a=0;a<data.length;a++){
+                    if(model==data[a].id){
+                      this.function.shape_id = data[a].id
+                    }
+                  }
+                  break;
+                case 3:
+                  this.function.diameter_l = model.diameter_l
+                  this.function.diameter_h = model.diameter_h
+                  break;
+              }
             }
+            listValue = listValue.join(",");
             this.values=listValue;
             this.navNum=""
             break;
@@ -463,11 +510,11 @@
        * 更多
        */
       change(item, index){
-//        switch (index){
-//          case index:
-//            this.isSel=!this.isSel
-//            break;
-//        }
+        switch (index){
+          case index:
+            this.isSel=!this.isSel
+            break;
+        }
         item.isSel=!item.isSel
       },
       /**
@@ -489,8 +536,38 @@
           title: title[i],
           model: i === 4 ? [] : '',
           type: i === 4 ? 'checkbox' : 'radio',
-          data: i === 0 ? [{id: "sale", name: '在售'}, {id: "sold" , name:'已售' }] : [],
-          data: i === 3 ? [{id: "sale", name: '在售'}, {id: "sold" , name:'已售' }] : [],
+          data: i === 0 ? [{id: "sale", name: '在售'}, {id: "sold" , name:'已售' }] : [] &&
+          i === 3 ? [{
+              id: {
+                diameter_l:0,
+                diameter_h:36
+             },
+              name: '36mm以下'
+            }, {
+              id: {
+                diameter_l:36,
+                diameter_h:39
+              },
+              name: '36-39mm'
+            }, {
+              id: {
+                diameter_l:39,
+                diameter_h:42
+              },
+              name: '39-42mm'
+            }, {
+              id: {
+                diameter_l:42,
+                diameter_h:45
+              },
+              name: '42-45mm'
+            }, {
+              id: {
+                diameter_l:45,
+                diameter_h:-1
+              },
+              name: '45mm以上'
+            }] : [],
         })
       }
 
@@ -539,7 +616,6 @@
         //      复杂功能
         self.$http.get(`http://apidev.swisstimevip.com:8000/dict/v1/dict/function`).then(res=>{
           self.functionss = res.data.data
-          console.log( res.data.data)
         }).catch(err=>{
           console.log(err)
         })
@@ -562,7 +638,6 @@
               ///  to do result
                   let data = []
                  obj.list.data = res.data.data
-                   console.log(res.data.data)
                  }else {
                   obj.data = []
                  }

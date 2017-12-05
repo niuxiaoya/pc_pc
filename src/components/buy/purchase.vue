@@ -1,5 +1,5 @@
 <template>
-  <div class="Buy">
+  <div class="Purchase">
     <Top></Top>
     <Navs :num="1"></Navs>
     <div class="mian">
@@ -26,7 +26,7 @@
               </p>
             </div>
             <div class="button">
-              <p @click="buy">立即购买</p>
+              <p>立即购买</p>
               <p>联系客服</p>
             </div>
             <div class="map">
@@ -127,11 +127,6 @@
       },500)
 
     },
-    methods:{
-      buy(){
-
-      }
-    },
     components: {
       Top,  //头部
       Navs, //导航
@@ -140,7 +135,7 @@
   }
 </script>
 <style lang="less" scoped type="text/less">
-  .Buy{
+  .Purchase{
     .mian{
       box-sizing:border-box;
       max-width: 1200px;
