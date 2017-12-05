@@ -11,7 +11,10 @@ import VipDeatil from '@/components/vip/detail'  //会籍详情
 import Information from '@/components/information/information'  //资讯
 import Detail from '@/components/information/detail'  //资讯详情
 import About from '@/components/about/about'  //关于我们
+
 import Login from '@/components/login/login'  //登陆
+import People from '@/components/login/people'  //个人中心
+import Public from '@/components/login/public'  //我的发布
 import Lodding from '@/components/lodding'
 
 Vue.use(Router)
@@ -67,6 +70,16 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/people',
+      name: 'People',
+      component: People
+    },
+    {
+      path: '/public',
+      name: 'Public',
+      component: Public
     },
     {
       path: '/lodding',
